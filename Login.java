@@ -22,10 +22,10 @@ public class Login {
 
                     switch (usuario.getId()) {
                         case ("C") -> {
-                            MenusIniciais.showMenuCliente();
+                            MenusIniciais.showMenuCliente(usuario);
                         }
                         case ("F") -> {
-                            MenusIniciais.showMenuFuncionario();
+                            MenusIniciais.showMenuFuncionario(usuario);
                         }
                     }
                     return usuario;

@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class MenusIniciais {
     private static Scanner input = new Scanner(System.in);
 
-    public static void showMenuCliente() {
-        System.out.println(c.getNome() + ", o que gostaria de fazer?");
+    public static void showMenuCliente(Usuario user) {
+        System.out.println(user.getNome() + ", o que gostaria de fazer?");
         String opcao = input.nextLine();
 
         switch (opcao) {
@@ -33,8 +33,8 @@ public class MenusIniciais {
         }
     }
 
-    public static void showMenuFuncionario() {
-        System.out.println(f.getNome() + ", o que gostaria de fazer?");
+    public static void showMenuFuncionario(Usuario user) {
+        System.out.println(user.getNome() + ", o que gostaria de fazer?");
         String opcao = input.nextLine();
 
         switch (opcao) {
