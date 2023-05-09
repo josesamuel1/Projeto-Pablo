@@ -19,6 +19,15 @@ public class Login {
                 // Se estiver retornamos o usuario;
                 if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
                     System.out.println("Bem-vindo " + usuario.getNome() + "!");
+
+                    switch (usuario.getId()) {
+                        case ("C") -> {
+                            MenusIniciais.showMenuCliente();
+                        }
+                        case ("F") -> {
+                            MenusIniciais.showMenuFuncionario();
+                        }
+                    }
                     return usuario;
                 }
             }
