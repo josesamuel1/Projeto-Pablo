@@ -1,3 +1,5 @@
+package Models;
+
 public class Atendente extends Funcionario {
     private double salario = 1300;
 

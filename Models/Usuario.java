@@ -1,3 +1,5 @@
+package Models;
+
 public class Usuario {
     private String nome, id;
     private String email, senha;

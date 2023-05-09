@@ -1,9 +1,11 @@
+import Models.Cliente;
+import Models.Funcionario;
+
 import java.util.Scanner;
 
-// Classe para efetuar cadastro do usuário
+
 public class Cadastro {
     private static Scanner input = new Scanner(System.in);
-
     public static void showMenu() {
         // Receber dados obrigatorios
         System.out.print("Nome: ");
@@ -15,7 +17,7 @@ public class Cadastro {
         System.out.print("Senha: ");
         String senha = input.nextLine();
 
-        System.out.println("Você é Cliente ou Funcionário?");
+        System.out.println("Você é Models.Cliente ou Funcionário?");
         String id = input.nextLine().toUpperCase();
 
         switch (id) {

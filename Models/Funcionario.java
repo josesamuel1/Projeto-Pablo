@@ -1,4 +1,6 @@
-public class Funcionario extends Usuario{
+package Models;
+
+public class Funcionario extends Usuario {
     String cargo;
     private int horasDeTrabalho = 160;
 
@@ -10,17 +12,12 @@ public class Funcionario extends Usuario{
     public String getCargo() {
         return cargo;
     }
-
-
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-
     public int getHorarioDeTrabalho() {
         return horasDeTrabalho;
     }
-
-
     public void setHorasDeTrabalho(int horasDeTrabalho) {
         this.horasDeTrabalho = horasDeTrabalho;
     }
