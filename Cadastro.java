@@ -3,9 +3,9 @@ import Models.Funcionario;
 
 import java.util.Scanner;
 
-
 public class Cadastro {
     private static Scanner input = new Scanner(System.in);
+
     public static void showMenu() {
         // Receber dados obrigatorios
         System.out.print("Nome: ");
@@ -28,14 +28,18 @@ public class Cadastro {
                 System.out.print("Telefone: ");
                 String fone = input.nextLine();
 
+                System.out.println("Cadastro concluído com sucesso.");
                 Cliente cliente = new Cliente(nome, id, email, senha, endereco, fone);
+                Login.menu();
             }
 
             case "F" -> {
                 System.out.print("Cargo: ");
                 String cargo = input.nextLine();
 
-                Funcionario funcionario = new Funcionario (nome, id, email, senha, cargo);
+                System.out.println("Cadastro concluído com sucesso.");
+                Funcionario funcionario = new Funcionario(nome, id, email, senha, cargo);
+                Login.menu();
             }
         }
     }

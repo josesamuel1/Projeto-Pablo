@@ -9,10 +9,10 @@ public class DataBase {
     private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
     private static ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 
-    /*Construtor*/
+    /* Construtor */
     // Padrão
 
-    /*Getters&Setters*/
+    /* Getters&Setters */
     public static ArrayList<Produto> getProdutos() {
         return produtos;
     }
@@ -37,7 +37,7 @@ public class DataBase {
         DataBase.pedidos = pedidos;
     }
 
-    /*Métodos*/
+    /* Métodos */
 
     // Mostrar cadastrados
     public void mostrarProdutos() {
@@ -72,7 +72,7 @@ public class DataBase {
     public Usuario pesquisarUsuario(Usuario usuarioProcurado) {
         for (Usuario usuario : usuarios) {
             if (usuarioProcurado == usuario) {
-                System.out.println("Esse cliente está cadastrado");
+                System.out.println("Esse cliente está cadastrado.");
                 return usuario;
             }
         }
@@ -93,11 +93,12 @@ public class DataBase {
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
     }
+
     public void adicionarUsuario(Usuario usuario) {
         usuarios.add(usuario);
     }
-    public void adicionarPedido(Pedido pedido){
+
+    public void adicionarPedido(Pedido pedido) {
         pedidos.add(pedido);
     }
 }
-
