@@ -11,14 +11,13 @@ public class Programa {
         DataBase bancoDeDados = new DataBase();
 
         // Adicionando um administrador e um atendente ao banco;
-        bancoDeDados
-                .adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
+        bancoDeDados.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
         bancoDeDados.adicionarUsuario(new Atendente("Alex", "atd", "alex@gmail.com", "senha321", "Atendente"));
 
         int sair = 0;
         while (sair == 0) {
             // Mostramos o menu inicial e coletamos a opção;
-            System.out.println(UserInterface.getMenuInicial());
+            System.out.println(UserInterface.getMenuCadastroLogin());
             int opcao = Integer.parseInt(input.nextLine());
             switch (opcao) {
                 // OPÇÃO: LOGIN;
@@ -26,23 +25,12 @@ public class Programa {
                     // Login.menu() deve retornar um usuário cadastrado ou null;
                     Usuario usuario = Login.menu();
                     if (usuario instanceof Administrador) { // SE o usuário for um admministrador;
-                        // OPÇÕES DE ADMINISTRADOR AQUI
+                        MenusIniciais.showMenuAdministrador(usuario);
                     } else if (usuario instanceof Atendente) { // SE o usuário for um atendente;
-                        // OPÇÕES DE ATENDENTE AQUI
+                        MenusIniciais.showMenuAtendente(usuario);
                     } else if (usuario instanceof Cliente) { // SE o usuário for um cliente;
-                        // OPÇÕES DE CLIENTE AQUI
-                    } else { // Caso Login.menu() retorne null, quebramos o loop e o menu inicial será
-                             // exibido.
-                        break;
+                        MenusIniciais.showMenuCliente(usuario);
                     }
-                    /*
-                     * Se for cliente, terá acesso para fazer pedido, montar um kit
-                     * aplicar cupons, escolher entre retirada no local ou entrega,
-                     * 
-                     * Se for funcionário, ele terá como cancelar um pedido, marcar como
-                     * enviado, cadastrar produto, cupons.
-                     */
-
                 }
                 case 2 -> {
                     Cadastro.showMenu();

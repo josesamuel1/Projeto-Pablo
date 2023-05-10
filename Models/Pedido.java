@@ -1,12 +1,15 @@
 package Models;
 
+
+import Enums.Status;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Pedido {
     private ArrayList<Produto> produtos;
     private LocalDateTime data;
-    private boolean pedidoAtivo;
+    private Status status;
 
     /*Construtor*/
     public Pedido(ArrayList<Produto> produtos){
@@ -14,7 +17,6 @@ public class Pedido {
     }
     public Pedido(Produto produto, int quantidade, ArrayList<Produto> produtos){
         this.produtos = produtos;
-        pedidoAtivo = true;
     }
 
     /*Getters&Setters*/
@@ -34,11 +36,7 @@ public class Pedido {
         this.data = data;
     }
 
-    public boolean isPedidoAtivo() {
-        return pedidoAtivo;
-    }
-
-    public void setPedidoAtivo(boolean pedidoAtivo) {
-        this.pedidoAtivo = pedidoAtivo;
+    public Status getStatus() {
+        return status;
     }
 }
