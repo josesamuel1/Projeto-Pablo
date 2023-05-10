@@ -12,20 +12,16 @@ public class Funcionario extends Usuario {
     public String getCargo() {
         return cargo;
     }
+
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+
     public int getHorarioDeTrabalho() {
         return horasDeTrabalho;
     }
+
     public void setHorasDeTrabalho(int horasDeTrabalho) {
         this.horasDeTrabalho = horasDeTrabalho;
-    }
-
-    public void calcularHoraExtra(){
-        if (this.horasDeTrabalho > 160){
-            this.salario = this.salario + ((this.horasDeTrabalho - 160) * 8);
-        }
-        System.out.println("O funcionário " + super.getNome() + "é RS " + this.salario);
     }
 }

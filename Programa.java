@@ -11,13 +11,14 @@ public class Programa {
         DataBase bancoDeDados = new DataBase();
 
         // Adicionando um administrador e um atendente ao banco;
-        bancoDeDados.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
+        bancoDeDados
+                .adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
         bancoDeDados.adicionarUsuario(new Atendente("Alex", "atd", "alex@gmail.com", "senha321", "Atendente"));
 
         int sair = 0;
         while (sair == 0) {
             // Mostramos o menu inicial e coletamos a opção;
-            System.out.println(UserInterface.getMenuCadastroLogin());
+            System.out.print(UserInterface.getMenuCadastroLogin());
             int opcao = Integer.parseInt(input.nextLine());
             switch (opcao) {
                 // OPÇÃO: LOGIN;

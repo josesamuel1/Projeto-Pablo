@@ -1,5 +1,5 @@
-import Models.Cliente;
-import Models.Funcionario;
+import Models.*;
+import Repositorio.DataBase;
 
 import java.util.Scanner;
 
@@ -7,6 +7,8 @@ public class Cadastro {
     private static Scanner input = new Scanner(System.in);
 
     public static void showMenu() {
+        DataBase bancoDeDados = new DataBase();
+
         // Receber dados obrigatorios
         System.out.print("Nome: ");
         String nome = input.nextLine();
@@ -29,8 +31,7 @@ public class Cadastro {
                 String fone = input.nextLine();
 
                 System.out.println("Cadastro concluído com sucesso.");
-                Cliente cliente = new Cliente(nome, id, email, senha, endereco, fone);
-                Login.menu();
+                bancoDeDados.adicionarUsuario(new Cliente(nome, id, email, senha, endereco, fone));
             }
 
             case "F" -> {
@@ -38,8 +39,7 @@ public class Cadastro {
                 String cargo = input.nextLine();
 
                 System.out.println("Cadastro concluído com sucesso.");
-                Funcionario funcionario = new Funcionario(nome, id, email, senha, cargo);
-                Login.menu();
+                bancoDeDados.adicionarUsuario(new Funcionario(nome, id, email, senha, cargo));
             }
         }
     }
