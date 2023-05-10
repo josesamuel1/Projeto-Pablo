@@ -22,10 +22,10 @@ public class Funcionario extends Usuario {
         this.horasDeTrabalho = horasDeTrabalho;
     }
 
-//    public void calcularHoraExtra(){
-//        if (this.horasDeTrabalho > 160){
-//            this.salario = this.salario + (this.salario * 1.5 * (this.horasDeTrabalho - 160) / 160);
-//        }
-//        System.out.println("O funcionário " + super.getNome() + "é RS " + this.salario);
-//    }
+    public void calcularHoraExtra(){
+        if (this.horasDeTrabalho > 160){
+            this.salario = this.salario + ((this.horasDeTrabalho - 160) * 8);
+        }
+        System.out.println("O funcionário " + super.getNome() + "é RS " + this.salario);
+    }
 }
