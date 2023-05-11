@@ -34,7 +34,7 @@ public class Programa {
                     }
                 }
                 case 2 -> {
-                    Cadastro.showMenu();
+                    Cadastro.showCadastroCliente();
                     // Pede as informações de cadastro do cliente
                 }
                 case 3 -> {
