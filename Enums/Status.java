@@ -6,7 +6,8 @@ public enum Status {
     CANCELADO("Cancelado", 3),
     PRODUCAO("Em produção", 4),
     PRONTO("Pronto para retirada", 5),
-    ENVIADO("Enviado", 6);
+    ENVIADO("Enviado", 6),
+    PENDENTE("Pendente", 7);
     private String status;
     private int id;
 

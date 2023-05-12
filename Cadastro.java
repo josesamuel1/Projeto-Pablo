@@ -7,8 +7,6 @@ public class Cadastro {
     private static Scanner input = new Scanner(System.in);
 
     public static void showCadastroCliente() {
-        DataBase bancoDeDados = new DataBase();
-
         // Receber dados obrigatorios
         System.out.print("Nome: ");
         String nome = input.nextLine();
@@ -26,12 +24,10 @@ public class Cadastro {
         String fone = input.nextLine();
 
         System.out.println("Cadastro concluído com sucesso.");
-        bancoDeDados.adicionarUsuario(new Cliente(nome, "clt", email, senha, endereco, fone));
+        DataBase.adicionarUsuario(new Cliente(nome, "clt", email, senha, endereco, fone));
     }
 
     public static void showCadastroFuncionario() {
-        DataBase bancoDeDados = new DataBase();
-
         // Receber dados obrigatórios
         System.out.print("Nome: ");
         String nome = input.nextLine();
@@ -46,6 +42,23 @@ public class Cadastro {
         String cargo = input.nextLine();
 
         System.out.println("Cadastro concluído com sucesso.");
-        bancoDeDados.adicionarUsuario(new Atendente(nome, "atd", email, senha, cargo));
+        DataBase.adicionarUsuario(new Atendente(nome, "atd", email, senha, cargo));
+    }
+    public static void cadastroProduto(){
+        System.out.println("| Cadastro de produto");
+        System.out.print("| Nome: ");
+        String nome = input.nextLine();
+
+        System.out.print("| Tipo/Sabor: ");
+        String tipo = input.nextLine();
+
+        System.out.print("| Preço Unitário: ");
+        double preco = Double.parseDouble(input.nextLine());
+
+        System.out.print("| Quantidade em estoque: ");
+        int quantidadeEstoque = Integer.parseInt(input.nextLine());
+
+        DataBase.adicionarAoEstoque(new Produto(nome, tipo, preco), quantidadeEstoque);
+        System.out.println("| Produto cadastrado.");
     }
 }

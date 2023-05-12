@@ -7,13 +7,10 @@ public class Programa {
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Instanciando o banco de dados;
-        DataBase bancoDeDados = new DataBase();
 
         // Adicionando um administrador e um atendente ao banco;
-        bancoDeDados
-                .adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
-        bancoDeDados.adicionarUsuario(new Atendente("Alex", "atd", "alex@gmail.com", "senha321", "Atendente"));
+        DataBase.cadastrosPadrao();
+        DataBase.estoquePadrao();
 
         int sair = 0;
         while (sair == 0) {
@@ -25,7 +22,8 @@ public class Programa {
                 case 1 -> {
                     // Login.menu() deve retornar um usuário cadastrado ou null;
                     Usuario usuario = Login.menu();
-                    if (usuario instanceof Administrador) { // SE o usuário for um admministrador;
+                    limpaTela();
+                    if (usuario instanceof Administrador) {// SE o usuário for um admministrador;
                         MenusIniciais.showMenuAdministrador(usuario);
                     } else if (usuario instanceof Atendente) { // SE o usuário for um atendente;
                         MenusIniciais.showMenuAtendente(usuario);
@@ -42,6 +40,12 @@ public class Programa {
                     sair = -1;
                 }
             }
+        }
+    }
+
+    public static void limpaTela() {
+        for (int i = 0; i < 20; ++i) {
+            System.out.println();
         }
     }
 }
