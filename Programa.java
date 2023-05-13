@@ -32,10 +32,12 @@ public class Programa {
                         MenusIniciais.showMenuCliente((Cliente) usuario);
                     }
                 }
+
                 case 2 -> {
                     Cadastro.showCadastroCliente();
                     // Pede as informações de cadastro do cliente
                 }
+
                 case 3 -> {
                     System.out.println("Volte sempre!");
                     sair = -1;
