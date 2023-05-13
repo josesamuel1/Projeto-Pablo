@@ -1,14 +1,17 @@
 import Models.*;
 import Repositorio.DataBase;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MenusIniciais {
     private static Scanner input = new Scanner(System.in);
 
-    public static void showMenuCliente(Usuario cliente) {
+    public static void showMenuCliente(Usuario cliente) throws IOException, InterruptedException {
         System.out.println("Bem-vindo(a) " + cliente.getNome() + "!");
         int sair = 0;
+        Pedido pedidoVez = new Pedido((Cliente) cliente);
+
         while (sair == 0) {
             System.out.print(UserInterface.getMenuCliente());
             String opcao = input.nextLine();
@@ -17,12 +20,12 @@ public class MenusIniciais {
                 // Ver cardapio
                 case "1" -> {
                     DataBase.exibirCardapioDinamico();
+                    System.out.println("Insira qualquer caractere para continuar.\n>>> ");
+                    String xyz = input.nextLine();
                 }
-
 
                 /*--Fazer pedido--*/
                 case "2" -> {
-                    Pedido pedidoVez = new Pedido((Cliente) cliente);
                     pedidoVez.esvaziarCarrinho();
                     boolean loopPedido = true;
                     while (loopPedido) {
@@ -33,7 +36,6 @@ public class MenusIniciais {
                         System.out.print("Adicione um item ao carrinho. [-1 para confirmar]\nID: ");
                         int option = Integer.parseInt(input.nextLine());
 
-
                         // adicionar ao carrinho
                         if (option != -1) {
                             // Pegamos a referencia do Produto
@@ -43,11 +45,13 @@ public class MenusIniciais {
                             System.out.print("Quantidade: ");
                             int quantidade = Integer.parseInt(input.nextLine());
 
-                            // Se o produto já estiver no carrinho, também levamos em consideração essa quantiddade
+                            // Se o produto já estiver no carrinho, também levamos em consideração essa
+                            // quantiddade
                             quantidade += pedidoVez.quantidadeProdutoCarrinho(produtoEscolhido);
 
                             limpaTela();
-                            // Verificamos se a quantidade de deseja do produto escolhido está disponível em estoque
+                            // Verificamos se a quantidade de deseja do produto escolhido está disponível em
+                            // estoque
                             if (DataBase.verificaQuantidade(produtoEscolhido, quantidade)) {
                                 // Instanciamos e o item e o adicionamos ao carrinho
                                 pedidoVez.adicionarItemAoCarrinho(new ItemDePedido(produtoEscolhido, quantidade));
@@ -61,12 +65,14 @@ public class MenusIniciais {
 
                         // Sair
                         else if (option == -1) {
-                            if (!pedidoVez.carrinhoEstaVazio()) ; // Fechar pedido
-                            //Mostramos o sumario do pedido
+                            if (!pedidoVez.carrinhoEstaVazio())
+                                ; // Fechar pedido
+                            // Mostramos o sumario do pedido
                             limpaTela();
                             System.out.println(pedidoVez.sumario());
                             pedidoVez.mostrarCarrinho();
-                            // Caso deseje remover algum item do pedido -> remover até o usuário decidir sair
+                            // Caso deseje remover algum item do pedido -> remover até o usuário decidir
+                            // sair
 
                             System.out.print("Deseja remover algum item? 1-Sim 2-Não\n>>> ");
                             int opt = Integer.parseInt(input.nextLine());
@@ -74,7 +80,6 @@ public class MenusIniciais {
                                 opt = pedidoVez.editarCarrinho();
                             }
                             limpaTela();
-
 
                             // Mostramos o sumario do pedido
                             System.out.println(pedidoVez.sumario());
@@ -87,8 +92,10 @@ public class MenusIniciais {
                                 int entregaOuRetirada = Integer.parseInt(input.nextLine());
                                 pedidoVez.entregaOuRetirada(entregaOuRetirada);
 
-                                /*Atualizamos o estoque com base no pedido e adicionamos ele
-                                ao historico do cliente e ao banco de dados*/
+                                /*
+                                 * Atualizamos o estoque com base no pedido e adicionamos ele
+                                 * ao historico do cliente e ao banco de dados
+                                 */
                                 DataBase.atualizarEstoque(pedidoVez);
                                 DataBase.adicionarPedido(pedidoVez);
                                 ((Cliente) cliente).adicionarAoHistorico(pedidoVez);
@@ -100,22 +107,21 @@ public class MenusIniciais {
                             loopPedido = false;
                         }
                     }
-                } case "3" -> { //PEDIR UM KIT PRONTO
+                }
+
+                case "3" -> { // Pedir um kit pronto
                     System.out.println("CASO 3");
                 }
 
-                // Pedir um kit personalizado
-                case "4" -> {
+                case "4" -> { // Pedir um kit personalizado
                     System.out.println("CASO 4");
                 }
 
-                // Ver meus pedidos
-                case "5" -> {
-                    System.out.println("CASO 5");
+                case "5" -> { // Ver meus pedidos
+                    pedidoVez.mostrarCarrinho();
                 }
 
-                // Log Out
-                case "6" -> {
+                case "6" -> { // Log Out
                     sair = -1;
                 }
                 default -> {
@@ -123,13 +129,11 @@ public class MenusIniciais {
                 }
             }
         }
-
     }
 
-    public static void showMenuAdministrador(Usuario administrador) {
+    public static void showMenuAdministrador(Usuario administrador) throws IOException, InterruptedException {
         System.out.println("Bem-vindo(a) " + administrador.getNome() + "!");
         int sair = 0;
-        String escolha;
 
         while (sair == 0) {
             System.out.print(UserInterface.getMenuAdministrador());
@@ -139,19 +143,42 @@ public class MenusIniciais {
                 // Gerenciar funcionarios
                 case "1" -> {
                     int finish = 0;
-                    while (finish == 0) {
-                        UserInterface.getGerenciarFuncionarios();
-                        escolha = input.nextLine();
 
-                        if (escolha == "1") { // Cadastrar novo funcionário
-                            System.out.println("OPCAO 1");
-                        } else if (escolha == "2") { // Remover funcionário
-                            System.out.println("OPCAO 2");
-                            ;
-                        } else if (escolha == "3") { // Calcular salário
-                            System.out.println("OPCAO 3");
-                        } else if (escolha == "4") { // Voltar
+                    while (finish == 0) {
+                        System.out.print(UserInterface.getGerenciarFuncionarios());
+                        int escolha = Integer.parseInt(input.nextLine());
+
+                        if (escolha == 1) { // Listar funcionários
+                            if (DataBase.listarFuncionarios()) {
+                                System.out.print("Insira qualquer caractere para continuar.\n>>> ");
+                                String xyz = input.nextLine();
+                            }
+
+                        } else if (escolha == 2) { // Cadastrar novo funcionário
+                            Cadastro.showCadastroFuncionario();
+
+                        } else if (escolha == 3) { // Remover funcionário
+                            if (DataBase.listarFuncionarios()) {
+                                System.out.print("Insira o email do funcionário para removê-lo.\n>>> ");
+                                String email = input.nextLine();
+
+                                DataBase.removerFuncionario(email);
+                            }
+
+                        } else if (escolha == 4) { // Calcular salário
+                            if (DataBase.listarFuncionarios()) {
+                                System.out.print("Insira o email do funcionário.\n>>> ");
+                                String email = input.nextLine();
+
+                                System.out.print("Insira as horas trabalhadas.\n>>> ");
+                                int horas = Integer.parseInt(input.nextLine());
+
+                                DataBase.recalcularSalario(email, horas);
+                            }
+
+                        } else if (escolha == 5) { // Voltar
                             finish = -1;
+
                         } else {
                             System.out.println("Opção não encontrada.");
                         }
@@ -159,7 +186,7 @@ public class MenusIniciais {
                 }
 
                 // Gerenciar clientes
-                case "2" -> { // Gerenciar clientes >> ---
+                case "2" -> {
                     System.out.println("CASO 2");
                 }
 
@@ -192,7 +219,8 @@ public class MenusIniciais {
                                 while (y != -1) {
                                     DataBase.exibirEstoque();
                                     System.out.println();
-                                    System.out.print("Escolha o ID do produto que deseja remover [-1 para concluir]\n>>> ");
+                                    System.out.print(
+                                            "Escolha o ID do produto que deseja remover [-1 para concluir]\n>>> ");
                                     int id = Integer.parseInt(input.nextLine());
                                     if (id == -1) {
                                         y = id;
@@ -213,13 +241,13 @@ public class MenusIniciais {
                     }
                 }
 
-
                 case "5" -> {
                     System.out.println("Histórico de pedidos");
                 }
                 case "6" -> {
                     sair = -1;
                 }
+
                 default -> {
                     System.out.println("Opção não encontrada.");
                 }
@@ -227,7 +255,7 @@ public class MenusIniciais {
         }
     }
 
-    public static void showMenuAtendente(Usuario atendente) {
+    public static void showMenuAtendente(Usuario atendente) throws IOException, InterruptedException {
         System.out.println("Bem-vindo(a) " + atendente.getNome() + "!");
 
         int sair = 0;
@@ -263,11 +291,7 @@ public class MenusIniciais {
         }
     }
 
-
-    public static void limpaTela() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println();
-        }
+    public static void limpaTela() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
-
 }

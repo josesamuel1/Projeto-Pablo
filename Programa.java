@@ -2,11 +2,12 @@ import Models.*;
 import Repositorio.DataBase;
 
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Programa {
     private static Scanner input = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         // Adicionando um administrador e um atendente ao banco;
         DataBase.cadastrosPadrao();
@@ -24,11 +25,11 @@ public class Programa {
                     Usuario usuario = Login.menu();
                     limpaTela();
                     if (usuario instanceof Administrador) {// SE o usuário for um admministrador;
-                        MenusIniciais.showMenuAdministrador(usuario);
+                        MenusIniciais.showMenuAdministrador((Administrador) usuario);
                     } else if (usuario instanceof Atendente) { // SE o usuário for um atendente;
-                        MenusIniciais.showMenuAtendente(usuario);
+                        MenusIniciais.showMenuAtendente((Atendente) usuario);
                     } else if (usuario instanceof Cliente) { // SE o usuário for um cliente;
-                        MenusIniciais.showMenuCliente(usuario);
+                        MenusIniciais.showMenuCliente((Cliente) usuario);
                     }
                 }
                 case 2 -> {
@@ -43,9 +44,7 @@ public class Programa {
         }
     }
 
-    public static void limpaTela() {
-        for (int i = 0; i < 20; ++i) {
-            System.out.println();
-        }
+    public static void limpaTela() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
 }

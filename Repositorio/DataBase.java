@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 public class DataBase {
     private static ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    private static ArrayList<Atendente> atendentes = new ArrayList<Atendente>();
+    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private static ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
     private static Map<Produto, Integer> estoqueProdutos = new LinkedHashMap<>();
-    /*Construtor*/
+    /* Construtor */
     // Padrão
+
     /* Getters&Setters */
     public static ArrayList<Usuario> getUsuarios() {
         return usuarios;
@@ -39,6 +41,7 @@ public class DataBase {
     public static void adicionarAoEstoque(Produto produto, int quantidade) {
         estoqueProdutos.put(produto, quantidade);
     }
+
     public static void removerDoEstoque(int id) {
         for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
             Produto p = produto.getKey();
@@ -50,14 +53,17 @@ public class DataBase {
         }
         System.out.println("ID não encontrado.");
     }
+
     public static void exibirEstoque() {
         for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
             System.out.println(produto.getKey() + " Quantidade em estoque: " + produto.getValue());
         }
     }
+
     public static int tamanhoEstoque() {
         return estoqueProdutos.size();
     }
+
     public static boolean verificaDisponibilidade(int id) {
         for (Map.Entry<Produto, Integer> produto : DataBase.getEstoqueProdutos().entrySet()) {
             if (produto.getKey().getId() == id && produto.getValue() > 0) {
@@ -66,6 +72,7 @@ public class DataBase {
         }
         return false;
     }
+
     public static void estoquePadrao() {
         DataBase.adicionarAoEstoque(new Produto("Pipoca", "Caramelo", 8.0), 3);
         DataBase.adicionarAoEstoque(new Produto("Pipoca", "Manteiga", 5.0), 3);
@@ -84,6 +91,7 @@ public class DataBase {
         DataBase.adicionarAoEstoque(new Produto("Descartável", "Colorido", 10.0), 3);
         DataBase.adicionarAoEstoque(new Produto("Descartavel", "Branco", 10.0), 3);
     }
+
     public static int criaIdProduto(int possivelId) {
         for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
             if (produto.getKey().getId() == possivelId) {
@@ -92,6 +100,7 @@ public class DataBase {
         }
         return possivelId;
     }
+
     public static void exibirCardapioDinamico() {
         for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
             if (verificaDisponibilidade(produto.getKey().getId())) {
@@ -99,8 +108,9 @@ public class DataBase {
             }
         }
     }
-    public static void atualizarEstoque(Pedido pedido){
-        for (ItemDePedido item: pedido.getCarrinho()){
+
+    public static void atualizarEstoque(Pedido pedido) {
+        for (ItemDePedido item : pedido.getCarrinho()) {
             estoqueProdutos.put(item.getProduto(), (estoqueProdutos.get(item.getProduto())) - item.getQuantidade());
         }
     }
@@ -122,7 +132,6 @@ public class DataBase {
         }
         return false;
     }
-
 
     // PEDIDOS
     public static void exibirPedidos() {
@@ -162,13 +171,90 @@ public class DataBase {
         return null;
     }
 
-    public static void adicionarUsuario(Usuario usuario) {
-        usuarios.add(usuario);
+    // Adicionar usuários nas respectivas listas
+    public static void adicionarUsuario(Usuario user) {
+        usuarios.add(user);
+    }
+
+    public static void adicionarAtendente(Atendente atd) {
+        atendentes.add(atd);
+    }
+
+    public static void adicionarCliente(Cliente clt) {
+        clientes.add(clt);
     }
 
     public static void cadastrosPadrao() {
-        DataBase.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha123", "Administrador"));
-        DataBase.adicionarUsuario(new Atendente("Alex", "atd", "alex@gmail.com", "senha321", "Atendente"));
-        DataBase.adicionarUsuario(new Cliente("Paula", "clt", "paula@gmail.com", "123senha", "Rua ruazinha", "83955555555"));
+        DataBase.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha1", "Administrador"));
+        DataBase.adicionarAtendente(new Atendente("Alex", "atd", "alex@gmail.com", "senha2", "Atendente"));
+        DataBase.adicionarCliente(
+                new Cliente("Paula", "clt", "paula@gmail.com", "senha3", "Rua X", "83955555555"));
+    }
+
+    // FUNCIONARIOS
+    public static boolean listarFuncionarios() {
+
+        // Caso onde não há ninguém na lista de funcionários, retorna false.
+        if (atendentes.isEmpty()) {
+            System.out.println("Nenhum funcionário cadastrado.");
+            return false;
+
+            // Caso tenha alguém na lista de funcionários, informa os valores e retorna
+            // true.
+        } else {
+            // Informa a quantidade de funcionários cadastrados.
+            System.out.println("Funcionários cadastrados: " + atendentes.size());
+
+            for (int i = 0; i < atendentes.size(); i++) {
+                // Informa o nome, email e cargo do funcionário.
+                System.out.println("| Nome: " + atendentes.get(i).getNome() +
+                        " | Email: " + atendentes.get(i).getEmail() +
+                        " | Cargo: " + atendentes.get(i).getCargo() + "\n");
+            }
+            return true;
+        }
+    }
+
+    public static void removerFuncionario(String email) {
+        boolean userRemoved = true;
+
+        // Caso não tenha nenhum funcionário cadastrado.
+        if (atendentes.isEmpty()) {
+            System.out.println("Não há funcionários cadastrados.");
+        }
+
+        // Caso tenha, vai procurá-lo para ser removido.
+        for (int i = 0; i < atendentes.size(); i++) {
+            if (atendentes.get(i).getEmail().equals(email)) {
+                // Caso seja removido.
+                System.out.println(atendentes.get(i).getNome() + " removido.");
+                atendentes.remove(i);
+                userRemoved = true;
+                break;
+
+                // Caso não seja removido.
+            } else {
+                userRemoved = false;
+            }
+        }
+        // Lógica que será executada apenas se o usuário não tenha sido encontrado.
+        if (!userRemoved) {
+            System.out.println("Funcionário não encontrado.");
+        }
+    }
+
+    public static void recalcularSalario(String email, int horas) {
+        // Caso não tenha nenhum funcionário cadastrado
+        if (atendentes.isEmpty()) {
+            System.out.println("Não há funcionários cadastrados.");
+        }
+
+        // Caso ache o felizardo, irá calcular sua hora extra.
+        for (int i = 0; i < atendentes.size(); i++) {
+            if (atendentes.get(i).getEmail().equals(email)) {
+                atendentes.get(i).calcularHoraExtra(horas);
+                break;
+            }
+        }
     }
 }

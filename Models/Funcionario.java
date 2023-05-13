@@ -1,7 +1,7 @@
 package Models;
 
 public class Funcionario extends Usuario {
-    String cargo;
+    private String cargo;
     private int horasDeTrabalho = 160;
 
     public Funcionario(String nome, String id, String email, String senha, String cargo) {

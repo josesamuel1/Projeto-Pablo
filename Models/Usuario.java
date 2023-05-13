@@ -1,8 +1,7 @@
 package Models;
 
 public class Usuario {
-    private String nome, id;
-    private String email, senha;
+    private String nome, id, email, senha;
 
     public Usuario(String nome, String id, String email, String senha) {
         this.nome = nome;

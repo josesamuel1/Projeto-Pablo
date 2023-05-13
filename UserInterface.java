@@ -20,19 +20,21 @@ public class UserInterface {
             >>>\s""";
     private static final String gerenciarFuncionarios = """
             +-----+----------------------------+
-            |  1  | Cadastrar novo funcionário |
-            |  2  | Remover funcionário        |
-            |  3  | Calcular salário           |
-            |  4  | Voltar                     |
+            |  1  | Listar funcionários        |
+            |  2  | Cadastrar novo funcionário |
+            |  3  | Remover funcionário        |
+            |  4  | Calcular salário           |
+            |  5  | Voltar                     |
             +-----+----------------------------+
-            """;
+            >>>\s""";
     private static final String gerenciarProdutos = """
-            +-----+------------------------+
-            |  1  | Cadastrar              |
-            |  2  | Remover                |
-            |  3  | Atualizar              |
-            |  4  | Voltar                 |
-            +-----+------------------------+""";
+            +-----+----------------------+
+            |  1  | Cadastrar            |
+            |  2  | Remover              |
+            |  3  | Atualizar            |
+            |  4  | Voltar               |
+            +-----+----------------------+
+            >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuCliente = """
             +-----+----------------------------+
@@ -46,13 +48,13 @@ public class UserInterface {
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuAtendente = """
-            +-----+----------------------------+
-            |  1  | Criar novo pedido          |
-            |  2  | Gerenciar pedidos          |
-            |  3  | Histórico de pedidos       |
-            |  4  | Gerenciar clientes         |
-            |  5  | Log out                    |
-            +-----+----------------------------+
+            +-----+---------------------------+
+            |  1  | Criar novo pedido         |
+            |  2  | Gerenciar pedidos         |
+            |  3  | Histórico de pedidos      |
+            |  4  | Gerenciar clientes        |
+            |  5  | Log out                   |
+            +-----+---------------------------+
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String erroNoLogin = """
@@ -70,6 +72,7 @@ public class UserInterface {
     public static String getMenuCadastroLogin() {
         return menuCadastroLogin;
     }
+
     public static String getMenuAdministrador() {
         return menuAdministrador;
     }
@@ -82,10 +85,9 @@ public class UserInterface {
         return menuAtendente;
     }
 
-    public static String getGerenciarProdutos(){
+    public static String getGerenciarProdutos() {
         return gerenciarProdutos;
     }
-
 
     public static String getGerenciarFuncionarios() {
         return gerenciarFuncionarios;
@@ -94,6 +96,5 @@ public class UserInterface {
     public static String getErroNoLogin() {
         return erroNoLogin;
     }
-
 
 }

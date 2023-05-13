@@ -1,6 +1,5 @@
 package Models;
 
-
 import Repositorio.DataBase;
 
 public class Produto {
@@ -9,8 +8,10 @@ public class Produto {
     private double preco;
     private int id;
 
-    /*Constructor*/
-    public Produto(){}
+    /* Constructor */
+    public Produto() {
+    }
+
     public Produto(String nome, String tipo, double preco) {
         this.nome = nome;
         this.tipo = tipo;
@@ -18,24 +19,28 @@ public class Produto {
         this.id = DataBase.criaIdProduto(DataBase.tamanhoEstoque());
     }
 
-    /*Getters&Setters*/
+    /* Getters&Setters */
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public double getPreco() {
         return preco;
     }
+
     public void setPreco(int preco) {
         this.preco = preco;
     }
+
     public int getId() {
         return id;
     }
 
-    /*Métodos*/
+    /* Métodos */
 
     @Override
     public String toString() {

@@ -42,9 +42,10 @@ public class Cadastro {
         String cargo = input.nextLine();
 
         System.out.println("Cadastro concluído com sucesso.");
-        DataBase.adicionarUsuario(new Atendente(nome, "atd", email, senha, cargo));
+        DataBase.adicionarAtendente(new Atendente(nome, "atd", email, senha, cargo));
     }
-    public static void cadastroProduto(){
+
+    public static void cadastroProduto() {
         System.out.println("| Cadastro de produto");
         System.out.print("| Nome: ");
         String nome = input.nextLine();
