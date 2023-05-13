@@ -14,6 +14,7 @@ public class ItemDePedido {
         this.produto = produto;
         this.quantidade = quantidade;
         this.subtotal = produto.getPreco() * quantidade;
+        this.total += this.subtotal;
     }
 
     /* Getters&Setters */

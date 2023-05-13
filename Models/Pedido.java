@@ -75,10 +75,16 @@ public class Pedido {
     }
 
     public void mostrarCarrinho() {
-        System.out.println("| Carrinho");
+        if (carrinhoEstaVazio()) {
+            System.out.println("O carrinho está vazio.");
+        } else {
+            System.out.println("| Carrinho");
 
-        for (int i = 0; i < carrinho.size(); i++) {
-            System.out.println("| Item número " + i + " | " + carrinho.get(i));
+            for (int i = 0; i < carrinho.size(); i++) {
+                System.out.println("| Item número " + i + " | " + carrinho.get(i));
+            }
+
+            System.out.println("| Total do carrinho: " + total());
         }
     }
 

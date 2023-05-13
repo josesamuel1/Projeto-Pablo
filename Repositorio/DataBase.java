@@ -187,7 +187,7 @@ public class DataBase {
     public static void cadastrosPadrao() {
         DataBase.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha1", "Administrador"));
         DataBase.adicionarAtendente(new Atendente("Alex", "atd", "alex@gmail.com", "senha2", "Atendente"));
-        DataBase.adicionarCliente(
+        DataBase.adicionarUsuario(
                 new Cliente("Paula", "clt", "paula@gmail.com", "senha3", "Rua X", "83955555555"));
     }
 

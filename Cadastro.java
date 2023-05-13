@@ -24,7 +24,7 @@ public class Cadastro {
         String fone = input.nextLine();
 
         System.out.println("Cadastro concluído com sucesso.");
-        DataBase.adicionarCliente(new Cliente(nome, "clt", email, senha, endereco, fone));
+        DataBase.adicionarUsuario(new Cliente(nome, "clt", email, senha, endereco, fone));
     }
 
     public static void showCadastroFuncionario() {
