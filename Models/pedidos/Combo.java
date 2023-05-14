@@ -8,31 +8,38 @@ public class Combo {
     private ArrayList<Produto> produtos = new ArrayList<>();
     private int porcentagemDesconto;
 
-    /*Construtores*/
-    public Combo(){}
+    /* Construtores */
+    public Combo() {
+    }
+
     public Combo(ArrayList<Produto> produtos, int porcentagemDesconto) {
         this.produtos = produtos;
         this.porcentagemDesconto = porcentagemDesconto;
     }
-    /*Getters&Setters*/
+
+    /* Getters&Setters */
     public ArrayList<Produto> getProdutos() {
         return produtos;
     }
+
     public void setProdutos(ArrayList<Produto> produtos) {
         this.produtos = produtos;
     }
+
     public int getPorcentagemDesconto() {
         return porcentagemDesconto;
     }
+
     public void setPorcentagemDesconto(int porcentagemDesconto) {
         this.porcentagemDesconto = porcentagemDesconto;
     }
 
-    /*Métodos*/
-    public void adicionarProduto(Produto produto){
+    /* Métodos */
+    public void adicionarProduto(Produto produto) {
         produtos.add(produto);
     }
-    public void removerProduto(Produto produto){
+
+    public void removerProduto(Produto produto) {
         produtos.remove(produto);
     }
 }

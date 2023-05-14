@@ -28,6 +28,15 @@ public class UserInterface {
             |  5  | Voltar                     |
             +-----+----------------------------+
             >>>\s""";
+    private static final String gerenciarClientes = """
+            +-----+----------------------------+
+            |  1  | Listar clientes            |
+            |  2  | Adicionar novo cliente     |
+            |  3  | Remover cliente            |
+            |  4  | Editar cliente             |
+            |  5  | Voltar                     |
+            +-----+----------------------------+
+            >>>\s""";
     private static final String gerenciarEstoque = """
             +-----+----------------------+
             |  1  | Exibir estoque       |
@@ -101,6 +110,10 @@ public class UserInterface {
 
     public static String getGerenciarFuncionarios() {
         return gerenciarFuncionarios;
+    }
+
+    public static String getGerenciarClientes() {
+        return gerenciarClientes;
     }
 
     public static String getErroNoLogin() {

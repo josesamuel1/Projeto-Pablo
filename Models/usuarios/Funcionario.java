@@ -1,7 +1,5 @@
 package Models.usuarios;
 
-import Models.usuarios.Usuario;
-
 public class Funcionario extends Usuario {
     private String cargo;
     private int horasDeTrabalho = 160;

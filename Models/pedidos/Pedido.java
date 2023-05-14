@@ -45,6 +45,7 @@ public class Pedido {
     public ArrayList<ItemDePedido> getCarrinho() {
         return carrinho;
     }
+
     public ArrayList<Produto> getProdutosNoPedido() {
         ArrayList<Produto> produtosNoPedido = new ArrayList<>();
         for (ItemDePedido itemDePedido : carrinho) {
@@ -130,8 +131,6 @@ public class Pedido {
     }
 
     public void fecharPedido() {
-
-
     }
 
     // Referentes a lógica do pedido
@@ -146,6 +145,7 @@ public class Pedido {
         }
         return soma;
     }
+
     public void entregaOuRetirada(int opt) {
         if (opt == 1) {
             marcarParaEntrega();
@@ -153,19 +153,22 @@ public class Pedido {
             marcarParaRetirada();
         }
     }
+
     public void marcarParaEntrega() {
         this.marcadoParaEntrega = true;
     }
+
     public void marcarParaRetirada() {
         this.marcadoParaEntrega = true;
     }
-    public void aplicarCombo(int desconto){
+
+    public void aplicarCombo(int desconto) {
 
     }
 
     public String toString() {
         return "| Data e hora do pedido: " + data.format(padraoDiaHora) + "\n" + "| Status do pedido: "
-                + status.getStatus() + "\n" + "| Total a pagar: " + valorTotal;
+                + status.getStatus() + "\n" + "| Total a pagar: R$" + valorTotal;
     }
 
 }
