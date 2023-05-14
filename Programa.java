@@ -1,4 +1,7 @@
-import Models.*;
+import Models.usuarios.Administrador;
+import Models.usuarios.Atendente;
+import Models.usuarios.Cliente;
+import Models.usuarios.Usuario;
 import Repositorio.DataBase;
 
 import java.util.Scanner;

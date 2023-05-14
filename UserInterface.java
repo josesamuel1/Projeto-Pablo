@@ -13,9 +13,10 @@ public class UserInterface {
             |  1  | Gerenciar funcionários |
             |  2  | Gerenciar clientes     |
             |  3  | Gerenciar pedidos      |
-            |  4  | Gerenciar produtos     |
-            |  5  | Histórico de pedidos   |
-            |  6  | Log out                |
+            |  4  | Gerenciar estoque      |
+            |  5  | Gerenciar combos       |
+            |  6  | Histórico de pedidos   |
+            |  7  | Log out                |
             +-----+------------------------+
             >>>\s""";
     private static final String gerenciarFuncionarios = """
@@ -27,23 +28,31 @@ public class UserInterface {
             |  5  | Voltar                     |
             +-----+----------------------------+
             >>>\s""";
-    private static final String gerenciarProdutos = """
+    private static final String gerenciarEstoque = """
             +-----+----------------------+
-            |  1  | Cadastrar            |
-            |  2  | Remover              |
-            |  3  | Atualizar            |
+            |  1  | Exibir estoque       |
+            |  2  | Cadastrar produtos   |
+            |  3  | Remover produtos     |
+            |  4  | Atualizar produtos   |
+            |  5  | Voltar               |
+            +-----+----------------------+
+            >>>\s""";
+    private static final String gerenciarCombos = """
+            +-----+----------------------+
+            |  1  | Exibir combos        |
+            |  2  | Criar combo          |
+            |  3  | Remover combo        |
             |  4  | Voltar               |
-            +-----+----------------------+
+             +-----+---------------------+
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuCliente = """
             +-----+----------------------------+
             |  1  | Ver cardápio               |
             |  2  | Fazer pedido               |
-            |  3  | Pedir um kit pronto        |
-            |  4  | Pedir um kit personalizado |
-            |  5  | Ver seus pedidos           |
-            |  6  | Log out                    |
+            |  3  | Gerenciar pedidos ativos   |
+            |  4  | Histórico de Pedidos       |
+            |  5  | Log out                    |
             +-----+----------------------------+
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -86,8 +95,8 @@ public class UserInterface {
     }
 
     // Outros
-    public static String getGerenciarProdutos() {
-        return gerenciarProdutos;
+    public static String getGerenciarEstoque() {
+        return gerenciarEstoque;
     }
 
     public static String getGerenciarFuncionarios() {
@@ -98,4 +107,7 @@ public class UserInterface {
         return erroNoLogin;
     }
 
+    public static String getGerenciarCombos() {
+        return gerenciarCombos;
+    }
 }

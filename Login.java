@@ -1,4 +1,4 @@
-import Models.*;
+import Models.usuarios.Usuario;
 import Repositorio.DataBase;
 
 import java.util.Scanner;

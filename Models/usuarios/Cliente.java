@@ -1,4 +1,6 @@
-package Models;
+package Models.usuarios;
+
+import Models.pedidos.Pedido;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package Models;
+package Models.pedidos;
 
 import Enums.Status;
-
+import Models.usuarios.Cliente;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,7 +13,8 @@ public class Pedido {
     private LocalDateTime data = LocalDateTime.now();
     private DateTimeFormatter padraoDiaHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private boolean marcadoParaEntrega;
-    private Status status = Status.PENDENTE;
+    private Status status;
+    private double valorTotal;
 
     /* Construtores */
     public Pedido() {
@@ -21,6 +22,7 @@ public class Pedido {
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
+        this.status = Enums.Status.valueOf("PENDENTE");
     }
 
     /* Getters&Setters */
@@ -43,22 +45,34 @@ public class Pedido {
     public ArrayList<ItemDePedido> getCarrinho() {
         return carrinho;
     }
-
-    public void entregaOuRetirada(int opt) {
-        if (opt == 1) {
-            marcarParaEntrega();
-        } else if (opt == 2) {
-            marcarParaRetirada();
+    public ArrayList<Produto> getProdutosNoPedido() {
+        ArrayList<Produto> produtosNoPedido = new ArrayList<>();
+        for (ItemDePedido itemDePedido : carrinho) {
+            produtosNoPedido.add(itemDePedido.getProduto());
         }
+        return produtosNoPedido;
     }
 
-    public void marcarParaEntrega() {
-        this.marcadoParaEntrega = true;
+    public double getValorTotal() {
+        return valorTotal;
     }
 
-    public void marcarParaRetirada() {
-        this.marcadoParaEntrega = true;
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public DateTimeFormatter getPadraoDiaHora() {
+        return padraoDiaHora;
+    }
+
     /* Métodos */
 
     // Referentes a atualização do carrinho
@@ -79,12 +93,9 @@ public class Pedido {
             System.out.println("O carrinho está vazio.");
         } else {
             System.out.println("| Carrinho");
-
             for (int i = 0; i < carrinho.size(); i++) {
                 System.out.println("| Item número " + i + " | " + carrinho.get(i));
             }
-
-            System.out.println("| Total do carrinho: " + total());
         }
     }
 
@@ -120,6 +131,7 @@ public class Pedido {
 
     public void fecharPedido() {
 
+
     }
 
     // Referentes a lógica do pedido
@@ -134,10 +146,26 @@ public class Pedido {
         }
         return soma;
     }
+    public void entregaOuRetirada(int opt) {
+        if (opt == 1) {
+            marcarParaEntrega();
+        } else if (opt == 2) {
+            marcarParaRetirada();
+        }
+    }
+    public void marcarParaEntrega() {
+        this.marcadoParaEntrega = true;
+    }
+    public void marcarParaRetirada() {
+        this.marcadoParaEntrega = true;
+    }
+    public void aplicarCombo(int desconto){
+
+    }
 
     public String toString() {
         return "| Data e hora do pedido: " + data.format(padraoDiaHora) + "\n" + "| Status do pedido: "
-                + status.getStatus();
+                + status.getStatus() + "\n" + "| Total a pagar: " + valorTotal;
     }
 
 }

@@ -1,13 +1,13 @@
 package Enums;
 
 public enum Status {
-    ACEITO("Aceito", 1),
-    NEGADO("Negado", 2),
-    CANCELADO("Cancelado", 3),
-    PRODUCAO("Em produção", 4),
-    PRONTO("Pronto para retirada", 5),
-    ENVIADO("Enviado", 6),
-    PENDENTE("Pendente", 7);
+    ACEITO("Aceito", 0),
+    NEGADO("Negado", 1),
+    CANCELADO("Cancelado", 2),
+    PRODUCAO("Em produção", 3),
+    PRONTO("Pronto para retirada", 4),
+    ENVIADO("Enviado", 5),
+    PENDENTE("Pendente", 6);
     private String status;
     private int id;
 

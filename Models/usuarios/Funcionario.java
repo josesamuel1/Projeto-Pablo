@@ -1,4 +1,6 @@
-package Models;
+package Models.usuarios;
+
+import Models.usuarios.Usuario;
 
 public class Funcionario extends Usuario {
     private String cargo;

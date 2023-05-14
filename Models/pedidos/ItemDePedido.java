@@ -1,4 +1,4 @@
-package Models;
+package Models.pedidos;
 
 public class ItemDePedido {
     private Produto produto;

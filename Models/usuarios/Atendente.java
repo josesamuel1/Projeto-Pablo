@@ -1,4 +1,4 @@
-package Models;
+package Models.usuarios;
 
 public class Atendente extends Funcionario {
     private double salario = 1300;

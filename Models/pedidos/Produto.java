@@ -1,4 +1,4 @@
-package Models;
+package Models.pedidos;
 
 import Repositorio.DataBase;
 
@@ -52,6 +52,6 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "ID: " + id + " | Nome: " + nome + " | Tipo: " + tipo + " | Preço: R$" + preco + " ";
+        return "| ID: " + id + " | Nome: " + nome + " | Tipo: " + tipo + " | Preço: R$" + preco + " ";
     }
 }

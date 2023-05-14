@@ -1,4 +1,4 @@
-package Models;
+package Models.usuarios;
 
 public abstract class Usuario {
     private String nome, id, email, senha;
