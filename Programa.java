@@ -24,6 +24,7 @@ public class Programa {
                     // Login.menu() deve retornar um usuário cadastrado ou null;
                     Usuario usuario = Login.menu();
                     limpaTela();
+
                     if (usuario instanceof Administrador) {// SE o usuário for um admministrador;
                         MenusIniciais.showMenuAdministrador((Administrador) usuario);
                     } else if (usuario instanceof Atendente) { // SE o usuário for um atendente;

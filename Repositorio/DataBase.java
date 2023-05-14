@@ -3,6 +3,7 @@ package Repositorio;
 import Models.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -51,6 +52,38 @@ public class DataBase {
                 return;
             }
         }
+
+        System.out.println("ID não encontrado.");
+    }
+
+    public static void atualizarProdutos(int id) {
+        Scanner input = new Scanner(System.in);
+
+        for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
+            Produto p = produto.getKey();
+
+            if (p.getId() == id) {
+                System.out.print("Novo nome:\n>>> ");
+                String novoNome = input.nextLine();
+                p.setNome(novoNome);
+
+                System.out.print("Novo tipo:\n>>> ");
+                String novoTipo = input.nextLine();
+                p.setTipo(novoTipo);
+
+                System.out.print("Novo preço:\n>>> ");
+                int novoPreco = Integer.parseInt(input.nextLine());
+                p.setPreco(novoPreco);
+
+                System.out.print("Nova quantidade:\n>>> ");
+                Integer novaQntd = Integer.parseInt(input.nextLine());
+                estoqueProdutos.put(p, novaQntd);
+
+                System.out.println("Novo produto " + p.getNome() + " atualizado com sucesso.");
+                return;
+            }
+        }
+
         System.out.println("ID não encontrado.");
     }
 
@@ -136,7 +169,7 @@ public class DataBase {
     // PEDIDOS
     public static void exibirPedidos() {
         for (Pedido pedido : pedidos) {
-            System.out.println(pedido);
+            System.out.println(pedido.getCarrinho() + "\n");
         }
     }
 
@@ -155,9 +188,14 @@ public class DataBase {
     }
 
     // USUARIOS
-    public static void exibirUsuarios() {
+    public static void exibirClientes() {
+        // Vai percorrer a lista de usuários
         for (Usuario usuario : usuarios) {
-            System.out.println(usuario);
+            // Caso o usuário seja do tipo "Cliente", vai mostrar suas informações
+            if (usuario instanceof Cliente) {
+                System.out.println(usuario + "\n");
+            }
+            System.out.println();
         }
     }
 
@@ -178,10 +216,12 @@ public class DataBase {
 
     public static void adicionarAtendente(Atendente atd) {
         atendentes.add(atd);
+        adicionarUsuario(atd);
     }
 
     public static void adicionarCliente(Cliente clt) {
         clientes.add(clt);
+        adicionarUsuario(clt);
     }
 
     public static void cadastrosPadrao() {

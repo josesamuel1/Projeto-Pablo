@@ -20,7 +20,7 @@ public class MenusIniciais {
                 // Ver cardapio
                 case "1" -> {
                     DataBase.exibirCardapioDinamico();
-                    System.out.println("Insira qualquer caractere para continuar.\n>>> ");
+                    System.out.print("Insira qualquer caractere para continuar.");
                     String xyz = input.nextLine();
                 }
 
@@ -187,12 +187,15 @@ public class MenusIniciais {
 
                 // Gerenciar clientes
                 case "2" -> {
-                    System.out.println("CASO 2");
+                    DataBase.exibirClientes();
                 }
 
                 // Gerenciar pedidos
                 case "3" -> {
-                    System.out.println("CASO 3");
+                    //
+                    // Ainda em produção
+                    //
+                    DataBase.exibirPedidos();
                 }
 
                 // Gerenciar produtos
@@ -213,6 +216,7 @@ public class MenusIniciais {
                                     }
                                 }
                             }
+
                             // REMOVER PRODUTOS
                             case (2) -> {
                                 int y = 0;
@@ -229,9 +233,23 @@ public class MenusIniciais {
                                     }
                                 }
                             }
+
                             // ATUALIZAR PRODUTOS
                             case (3) -> {
-                                System.out.println("Atualizar Produto");
+                                int y = 0;
+
+                                while (y == 0) {
+                                    DataBase.exibirEstoque();
+                                    System.out.println();
+                                    System.out.print(
+                                            "Escolha o ID do produto que deseja atualizar [-1 para concluir]\n>>> ");
+                                    int id = Integer.parseInt(input.nextLine());
+                                    if (id == -1) {
+                                        y = id;
+                                    } else {
+                                        DataBase.atualizarProdutos(id);
+                                    }
+                                }
                             }
                             // VOLTAR
                             case (4) -> {
@@ -244,6 +262,7 @@ public class MenusIniciais {
                 case "5" -> {
                     System.out.println("Histórico de pedidos");
                 }
+
                 case "6" -> {
                     sair = -1;
                 }

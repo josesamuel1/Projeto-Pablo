@@ -5,7 +5,7 @@ public class UserInterface {
             |  1  |   Login      |
             |  2  |   Cadastro   |
             |  3  |   Sair       |
-            +---+----------------+
+            +-----+--------------+
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuAdministrador = """
@@ -85,6 +85,7 @@ public class UserInterface {
         return menuAtendente;
     }
 
+    // Outros
     public static String getGerenciarProdutos() {
         return gerenciarProdutos;
     }

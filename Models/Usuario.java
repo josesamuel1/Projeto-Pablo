@@ -1,6 +1,6 @@
 package Models;
 
-public class Usuario {
+public abstract class Usuario {
     private String nome, id, email, senha;
 
     public Usuario(String nome, String id, String email, String senha) {

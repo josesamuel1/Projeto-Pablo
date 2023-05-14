@@ -28,11 +28,19 @@ public class Produto {
         this.nome = nome;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public double getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 

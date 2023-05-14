@@ -13,6 +13,7 @@ public class Login {
             // Coleta de dados referentes ao login utilizando métodos auxiliares
             String email = lerEmail();
             String senha = lerSenha();
+
             // Verificamos se o usuario está cadastrado
             for (Usuario usuario : DataBase.getUsuarios()) {
                 // Se estiver retornamos o usuario;
@@ -22,19 +23,19 @@ public class Login {
             }
             /*
              * Se o usuário não estiver cadastrado ou email/senha estiverem incorretos
-             * verificamos se o usuário quer
-             * continuar tentando logar ou sair
+             * verificamos se o usuário quer continuar tentando logar ou sair
              */
             System.out.println(UserInterface.getErroNoLogin());
             String opcao = lerOpcao();
-            if (opcao.equals("2")) { // Se não for o loop será quebrado e o retorno será null (fora do escopo do while)
+            if (opcao.equals("2")) { // Se não for o loop será quebrado e o retorno será null (fora do escopo do
+                                     // while)
                 usuarioValido = true; // Ativamos a condição de parada
             }
         }
         return null;
     }
 
-    /*Métodos auxiliares -Nesses métodos ocorre o tratamento de exceção*/
+    /* Métodos auxiliares -Nesses métodos ocorre o tratamento de exceção */
     private static String lerEmail() {
         System.out.print("Email: ");
         String email = input.nextLine();
