@@ -462,6 +462,7 @@ public class MenusIniciais {
                 }
             } catch (Exception e) {
                 System.out.println("Opção inválida.");
+                continue;
             }
         }
     }
@@ -502,6 +503,7 @@ public class MenusIniciais {
                 }
             } catch (Exception e) {
                 System.out.println("Opção inválida.");
+                continue;
             }
         }
     }
