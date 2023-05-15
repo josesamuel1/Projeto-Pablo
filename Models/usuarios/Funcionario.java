@@ -17,7 +17,7 @@ public class Funcionario extends Usuario {
         this.cargo = cargo;
     }
 
-    public int getHorarioDeTrabalho() {
+    public int getHorasDeTrabalho() {
         return horasDeTrabalho;
     }
 
