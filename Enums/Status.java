@@ -1,13 +1,14 @@
 package Enums;
 
+import Models.pedidos.Pedido;
+
 public enum Status {
     ACEITO("Aceito", 0),
     NEGADO("Negado", 1),
     CANCELADO("Cancelado", 2),
-    PRODUCAO("Em produção", 3),
-    PRONTO("Pronto para retirada", 4),
-    ENVIADO("Enviado", 5),
-    PENDENTE("Pendente", 6);
+    PRONTO("Pronto para retirada", 3),
+    ENVIADO("Enviado", 4),
+    PENDENTE("Pendente", 5);
     private String status;
     private int id;
 
@@ -22,6 +23,12 @@ public enum Status {
 
     public int getId() {
         return id;
+    }
+
+    public void statusEntrega(Pedido pedido){
+        if (pedido.isMarcadoParaEntrega()){
+
+        }
     }
 }
 

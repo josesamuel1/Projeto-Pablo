@@ -2,6 +2,7 @@ package Models.pedidos;
 
 import Enums.Status;
 import Models.usuarios.Cliente;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class Pedido {
     private Cliente cliente;
     private LocalDateTime data = LocalDateTime.now();
     private DateTimeFormatter padraoDiaHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    private boolean marcadoParaEntrega;
+    private boolean marcadoParaEntrega = false;
     private Status status;
     private double valorTotal;
 
@@ -74,6 +75,17 @@ public class Pedido {
         return padraoDiaHora;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public boolean isMarcadoParaEntrega() {
+        return marcadoParaEntrega;
+    }
+
+    public void setMarcadoParaEntrega(boolean marcadoParaEntrega) {
+        this.marcadoParaEntrega = marcadoParaEntrega;
+    }
     /* Métodos */
 
     // Referentes a atualização do carrinho
@@ -130,8 +142,6 @@ public class Pedido {
         carrinho.clear();
     }
 
-    public void fecharPedido() {
-    }
 
     // Referentes a lógica do pedido
     public String sumario() {
@@ -146,29 +156,51 @@ public class Pedido {
         return soma;
     }
 
-    public void entregaOuRetirada(int opt) {
+    public void entregaOuRetirada(Pedido pedido, int opt) {
         if (opt == 1) {
-            marcarParaEntrega();
+            pedido.setMarcadoParaEntrega(true);
         } else if (opt == 2) {
-            marcarParaRetirada();
+            pedido.setMarcadoParaEntrega(false);
         }
     }
 
-    public void marcarParaEntrega() {
-        this.marcadoParaEntrega = true;
-    }
-
-    public void marcarParaRetirada() {
-        this.marcadoParaEntrega = true;
-    }
-
-    public void aplicarCombo(int desconto) {
-
+    public void atualizaStatus(Pedido pedido, int opcao) {
+        if (!pedido.isMarcadoParaEntrega()) {
+            switch (opcao) {
+                case (1) -> {
+                    pedido.setStatus(Status.ACEITO);
+                }
+                case (2) -> {
+                    pedido.setStatus(Status.NEGADO);
+                }
+                case (3) -> {
+                    pedido.setStatus(Status.PRONTO);
+                }
+                default -> {
+                    System.out.println("Opção não encontrada");
+                }
+            }
+        } else {
+            switch (opcao) {
+                case (1) -> {
+                    pedido.setStatus(Status.ACEITO);
+                }
+                case (2) -> {
+                    pedido.setStatus(Status.NEGADO);
+                }
+                case (3) -> {
+                    pedido.setStatus(Status.ENVIADO);
+                }
+                default -> {
+                    System.out.println("Opção não encontrada");
+                }
+            }
+        }
     }
 
     public String toString() {
         return "| Data e hora do pedido: " + data.format(padraoDiaHora) + "\n" + "| Status do pedido: "
-                + status.getStatus() + "\n" + "| Total a pagar: R$" + valorTotal;
+               + status.getStatus() + "\n" + "| Total a pagar: R$" + valorTotal;
     }
 
 }

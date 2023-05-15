@@ -50,8 +50,9 @@ public class Cliente extends Usuario {
     }
 
     /* Métodos */
-    public void mostrarHistoricoPedidos(Cliente cliente) {
+    public void mostrarHistoricoPedidos() {
         for (Pedido pedido : histPedidos) {
+            System.out.println("+------------------------------------------+");
             System.out.println(pedido);
         }
     }

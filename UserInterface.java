@@ -54,6 +54,23 @@ public class UserInterface {
             |  4  | Voltar               |
              +-----+---------------------+
             >>>\s""";
+
+    private static final String mudarStatusEntrega = """
+            +------------------------------------+
+            | Selecione o novo status do pedido  |
+            | 1 - Aceito                         |
+            | 2 - Negado                         |
+            | 3 - Enviado                        |
+            +------------------------------------+
+            >>>\s""";
+    private static final String mudarStatusRetirada = """
+            +------------------------------------+
+            | Selecione o novo status do pedido  |
+            | 1 - Aceito                         |
+            | 2 - Negado                         |
+            | 3 - Pronto para retirada           |
+            +------------------------------------+
+            >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuCliente = """
             +-----+----------------------------+
@@ -67,11 +84,10 @@ public class UserInterface {
     /*----------------------------------------------------------------------------------------------------------------*/
     private static final String menuAtendente = """
             +-----+---------------------------+
-            |  1  | Criar novo pedido         |
-            |  2  | Gerenciar pedidos         |
-            |  3  | Histórico de pedidos      |
-            |  4  | Gerenciar clientes        |
-            |  5  | Log out                   |
+            |  1  | Gerenciar pedidos         |
+            |  2  | Histórico de pedidos      |
+            |  3  | Gerenciar clientes        |
+            |  4  | Log out                   |
             +-----+---------------------------+
             >>>\s""";
     /*----------------------------------------------------------------------------------------------------------------*/
@@ -122,5 +138,11 @@ public class UserInterface {
 
     public static String getGerenciarCombos() {
         return gerenciarCombos;
+    }
+    public static String getMudarStatusEntrega(){
+        return mudarStatusEntrega;
+    }
+    public static String getMudarStatusRetirada(){
+        return mudarStatusRetirada;
     }
 }

@@ -7,6 +7,7 @@ import Models.usuarios.Cliente;
 import Models.usuarios.Usuario;
 import Repositorio.DataBase;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,8 +18,6 @@ public class MenusIniciais {
     public static void showMenuCliente(Usuario cliente) throws IOException, InterruptedException {
         System.out.println("Bem-vindo(a) " + cliente.getNome() + "!");
         int sair = 0;
-        Pedido pedidoVez = new Pedido((Cliente) cliente);
-
         while (sair == 0) {
             try {
                 System.out.print(UserInterface.getMenuCliente());
@@ -27,12 +26,15 @@ public class MenusIniciais {
                 switch (opcao) {
                     // Ver cardapio
                     case "1" -> {
+                        limpaTela();
                         DataBase.exibirCardapioDinamico();
                         System.out.print("Insira qualquer caractere para continuar.");
                         String xyz = input.nextLine();
                     }
 
                     case "2" -> { // Fazer pedido
+                        limpaTela();
+                        Pedido pedidoVez = new Pedido((Cliente) cliente);
                         pedidoVez.esvaziarCarrinho();
                         boolean loopPedido = true;
                         while (loopPedido) {
@@ -66,7 +68,6 @@ public class MenusIniciais {
                                 } else {
                                     System.out.println("| Quantidade em estoque insuficiente");
                                 }
-
                                 pedidoVez.mostrarCarrinho();
                             }
 
@@ -90,8 +91,8 @@ public class MenusIniciais {
                                 pedidoVez.mostrarCarrinho();
                                 // Caso deseje remover algum item do pedido -> remover até o usuário decidir
                                 // sair
-
-                                System.out.print("Deseja remover algum item? 1-Sim 2-Não\n>>> ");
+                                System.out.println();
+                                System.out.print("Deseja remover algum item?\n1-Sim\n2-Não\n>>> ");
                                 int opt = Integer.parseInt(input.nextLine());
                                 while (opt == 1) {
                                     opt = pedidoVez.editarCarrinho();
@@ -102,20 +103,25 @@ public class MenusIniciais {
                                 System.out.println(pedidoVez.sumario());
                                 pedidoVez.mostrarCarrinho();
 
-                                System.out.print("Gostaria de confirmar o pedido? 1-Sim 2-Não\n>>> ");
+                                System.out.print("Gostaria de confirmar o pedido?\n1-Sim\n2-Não\n>>> ");
                                 int confirmaPedido = Integer.parseInt(input.nextLine());
                                 if (confirmaPedido == 1) {
                                     // Marcamos para retirada ou entrega
-                                    System.out.println("1- Para entregar\n2- Para Retirar na loja.");
+                                    System.out.print("1- Para entregar\n2- Para Retirar na loja.\n>>> ");
                                     int entregaOuRetirada = Integer.parseInt(input.nextLine());
-                                    pedidoVez.entregaOuRetirada(entregaOuRetirada);
+
+                                    if (entregaOuRetirada == 1){
+                                        pedidoVez.setMarcadoParaEntrega(true);
+                                    } else {
+                                        System.out.println("Opção não encontrada");
+                                    }
+
+                                    if (pedidoVez.isMarcadoParaEntrega()) {
+                                        System.out.println("Tempo estimado de entrega: 1 hora\nMomento da entrega: "
+                                                           + pedidoVez.getData().plusHours(1).format(pedidoVez.getPadraoDiaHora()));
+                                    }
+                                    limpaTela();
                                     System.out.println("Pedido Confirmado.");
-                                    System.out.println("Tempo estimado de entrega: 1 hora\nMomento da entrega: "
-                                            + pedidoVez.getData().plusHours(1).format(pedidoVez.getPadraoDiaHora()));
-                                    /*
-                                     * Atualizamos o estoque com base no pedido e adicionamos ele
-                                     * ao historico do cliente e ao banco de dados
-                                     */
                                     DataBase.atualizarEstoquePedidoConfirmado(pedidoVez);
                                     DataBase.adicionarPedido(pedidoVez);
                                     ((Cliente) cliente).adicionarAoHistorico(pedidoVez);
@@ -173,7 +179,7 @@ public class MenusIniciais {
                     }
 
                     case "4" -> { // Mostrar histórico de pedidos
-                        DataBase.mostrarListaPedidos(((Cliente) cliente).getHistPedidos());
+                        ((Cliente) cliente).mostrarHistoricoPedidos();
                     }
 
                     case "5" -> { // Log Out
@@ -199,7 +205,7 @@ public class MenusIniciais {
             try {
                 System.out.print(UserInterface.getMenuAdministrador());
                 String opcao = input.nextLine();
-
+                limpaTela();
                 switch (opcao) {
                     // Gerenciar funcionarios
                     case "1" -> {
@@ -222,10 +228,10 @@ public class MenusIniciais {
                                 if (DataBase.listarFuncionarios()) {
                                     System.out.print("Insira o email do funcionário para removê-lo.\n>>> ");
                                     String email = input.nextLine();
-
                                     DataBase.removerFuncionario(email);
+                                    limpaTela();
+                                    System.out.println("Funcionario removido");
                                 }
-
                             } else if (escolha == 4) { // Calcular salário
                                 if (DataBase.listarFuncionarios()) {
                                     System.out.print("Insira o email do funcionário.\n>>> ");
@@ -290,7 +296,52 @@ public class MenusIniciais {
 
                     // Gerenciar pedidos
                     case "3" -> {
-                        mostrarListaPedidosAtivos(DataBase.getPedidos());
+                        while (true) {
+                            ArrayList<Pedido> pedidos = DataBase.getPedidos();
+                            if (!pedidos.isEmpty()) {
+                                mostrarListaPedidosAtivos(pedidos);
+                            } else {
+                                System.out.println("Nenhum pedido cadastrado.");
+                                break;
+                            }
+                            System.out.println();
+                            System.out.print("| Deseja atualizar o status de algum pedido?\n| 1- Sim\n| 2- Não\n>>> ");
+                            int atualizar = Integer.parseInt(input.nextLine());
+
+                            if (atualizar == 1) {
+                                limpaTela();
+                                mostrarListaPedidosAtivos(pedidos);
+                                System.out.print("Selecione qual pedido deseja atualizar. [-1 para sair]\n>>> ");
+                                int p = Integer.parseInt(input.nextLine());
+
+                                if (p == -1){
+                                    break;
+                                }
+
+                                for (int i = 0; i < pedidos.size(); i++) {
+                                    Pedido pedidoVez = pedidos.get(i);
+                                    System.out.println("Pedido " + i);
+                                    if (p == i) {
+                                        if (!pedidoVez.isMarcadoParaEntrega()) {
+                                            System.out.print(UserInterface.getMudarStatusRetirada());
+                                        } else {
+                                            System.out.print(UserInterface.getMudarStatusEntrega());
+                                        }
+                                        int op = Integer.parseInt(input.nextLine());
+                                        limpaTela();
+                                        pedidoVez.atualizaStatus(pedidoVez, op);
+                                        System.out.println("| Status do pedido atualizado.");
+                                        System.out.println();
+                                    } else {
+                                        limpaTela();
+                                        System.out.println("| Pedido não encontrado");
+                                        System.out.println();
+                                    }
+                                }
+                            } else {
+                                break;
+                            }
+                        }
                     }
 
                     // Gerenciar produtos
@@ -298,7 +349,6 @@ public class MenusIniciais {
                         boolean x = true;
                         while (x) {
                             System.out.println(UserInterface.getGerenciarEstoque());
-                            System.out.print(">>> ");
                             int crudeProdutos = Integer.parseInt(input.nextLine());
                             switch (crudeProdutos) {
                                 case (1) -> {
@@ -449,9 +499,11 @@ public class MenusIniciais {
                         }
                     }
 
+                    // Historico de pedidos
                     case "6" -> {
                         DataBase.mostrarListaPedidos(DataBase.getPedidos());
                     }
+
                     case "7" -> {
                         sair = -1;
                     }
@@ -477,23 +529,98 @@ public class MenusIniciais {
                 String opcao = input.nextLine();
 
                 switch (opcao) {
-                    case "1" -> { // Criar novo pedido
-                        System.out.println("CASO 1");
+                    case "1" -> { // Gerenciar pedidos
+                        while (true) {
+                            limpaTela();
+                            ArrayList<Pedido> pedidos = DataBase.getPedidos();
+                            if (!pedidos.isEmpty()) {
+                                mostrarListaPedidosAtivos(pedidos);
+                            } else {
+                                System.out.println("Nenhum pedido cadastrado.");
+                                break;
+                            }
+                            System.out.println();
+                            System.out.print("| Deseja atualizar o status de algum pedido?\n| 1- Sim\n| 2- Não\n>>> ");
+                            int atualizar = Integer.parseInt(input.nextLine());
+
+                            if (atualizar == 1) {
+                                limpaTela();
+                                mostrarListaPedidosAtivos(pedidos);
+                                System.out.print("Selecione qual pedido deseja atualizar. [-1 para sair]\n>>> ");
+                                int p = Integer.parseInt(input.nextLine());
+
+                                if (p == -1){
+                                    break;
+                                }
+
+                                for (int i = 0; i < pedidos.size(); i++) {
+                                    Pedido pedidoVez = pedidos.get(i);
+                                    System.out.println("Pedido " + i);
+                                    if (p == i) {
+                                        if (!pedidoVez.isMarcadoParaEntrega()) {
+                                            System.out.print(UserInterface.getMudarStatusRetirada());
+                                        } else {
+                                            System.out.print(UserInterface.getMudarStatusEntrega());
+                                        }
+                                        int op = Integer.parseInt(input.nextLine());
+                                        pedidoVez.atualizaStatus(pedidoVez, op);
+                                        System.out.println("Status do pedido atualizado.");
+                                    } else {
+                                        System.out.println("Pedido não encontrado");
+                                    }
+                                }
+                            } else {
+                                break;
+                            }
+                        }
                     }
 
-                    case "2" -> { // Gerenciar pedidos
-                        System.out.println("CASO 2");
+                    case "2" -> { // Histórico de pedidos
+                        DataBase.mostrarListaPedidos(DataBase.getPedidos());
                     }
 
-                    case "3" -> { // Histórico de pedidos
-                        System.out.println("CASO 3");
+                    case "3" -> { // Gerenciar cliente
+                        int finish = 0;
+
+                        while (finish == 0) {
+                            System.out.print(UserInterface.getGerenciarClientes());
+                            int escolha = Integer.parseInt(input.nextLine());
+
+                            if (escolha == 1) { // Listar clientes
+                                if (DataBase.listarClientes()) {
+                                    System.out.print("Insira qualquer caractere para continuar.");
+                                    String xyz = input.nextLine();
+                                }
+
+                            } else if (escolha == 2) { // Cadastrar novo cliente
+                                Cadastro.showCadastroCliente();
+
+                            } else if (escolha == 3) { // Remover cliente
+                                if (DataBase.listarClientes()) {
+                                    System.out.print("Insira o email do cliente para removê-lo.\n>>> ");
+                                    String email = input.nextLine();
+
+                                    DataBase.removerCliente(email);
+                                }
+
+                            } else if (escolha == 4) { // Atualizar cliente
+                                if (DataBase.listarClientes()) {
+                                    System.out.print("Insira o email do cliente.\n>>> ");
+                                    String email = input.nextLine();
+
+                                    DataBase.atualizarCliente(email);
+                                }
+
+                            } else if (escolha == 5) { // Voltar
+                                finish = -1;
+
+                            } else {
+                                System.out.println("Opção não encontrada.");
+                            }
+                        }
                     }
 
-                    case "4" -> { // Gerenciar cliente
-                        System.out.println("CASO 4");
-                    }
-
-                    case "5" -> { // Log Out
+                    case "4" -> { // Log Out
                         sair = -1;
                     }
 
@@ -511,7 +638,6 @@ public class MenusIniciais {
     public static void limpaTela() throws IOException, InterruptedException {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
-
     public static boolean compoeCombo(ArrayList<Produto> produtos, Produto produto) {
         for (Produto p : produtos) {
             if (produto == p) {
@@ -535,14 +661,12 @@ public class MenusIniciais {
     }
 
     public static void mostrarListaPedidosAtivos(ArrayList<Pedido> pedidos) {
-        int i = 0;
-        for (Pedido p : pedidos) {
-            System.out.println("Pedido " + (i + 1));
-            i++;
+        for (int i = 0; i < pedidos.size(); i++) {
+            Pedido p = pedidos.get(i);
             Status statusPedido = p.getStatus();
-            if (statusPedido == Status.ACEITO || statusPedido == Status.valueOf("PENDENTE")
-                    || statusPedido == Status.PRODUCAO
-                    || statusPedido == Status.PRONTO || statusPedido == Status.ENVIADO) {
+            if (statusPedido == Status.ACEITO || statusPedido == Status.PENDENTE
+                || statusPedido == Status.PRONTO) {
+                System.out.println("Pedido " + i);
                 System.out.println(p);
             }
         }

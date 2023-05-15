@@ -47,6 +47,7 @@ public class DataBase {
     public static ArrayList<Combo> getCombos() {
         return combos;
     }
+
     /* Métodos */
 
     // ESTOQUE&PRODUTOS
@@ -331,6 +332,7 @@ public class DataBase {
 
     public static void mostrarListaPedidos(ArrayList<Pedido> pedidos) {
         for (Pedido p : pedidos) {
+            System.out.println("+-------------------------------------------+");
             System.out.println(p);
         }
     }
@@ -352,23 +354,21 @@ public class DataBase {
 
     // FUNCIONARIOS
     public static boolean listarFuncionarios() {
-
         // Caso onde não há ninguém na lista de funcionários, retorna false.
         if (atendentes.isEmpty()) {
             System.out.println("Nenhum funcionário cadastrado.");
             return false;
-
             // Caso tenha alguém na lista de funcionários, informa os valores e retorna
             // true.
         } else {
             // Informa a quantidade de funcionários cadastrados.
             System.out.println("Funcionários cadastrados: " + atendentes.size());
-
             for (int i = 0; i < atendentes.size(); i++) {
                 // Informa o nome, email e cargo do funcionário.
                 System.out.println("| Nome: " + atendentes.get(i).getNome() +
-                        " | Email: " + atendentes.get(i).getEmail() +
-                        " | Cargo: " + atendentes.get(i).getCargo() + "\n");
+                                   " | Email: " + atendentes.get(i).getEmail() +
+                                   " | Cargo: " + atendentes.get(i).getCargo() +
+                                   " | Salário do mês: R$" + atendentes.get(i).getSalario() + "\n");
             }
             return true;
         }

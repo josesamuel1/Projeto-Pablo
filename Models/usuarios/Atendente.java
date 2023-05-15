@@ -10,7 +10,9 @@ public class Atendente extends Funcionario {
     public void setSalario(double salario) {
         this.salario = salario;
     }
-
+    public double getSalario() {
+        return this.salario;
+    }
     public void calcularHoraExtra(int horas) {
         if (horas == 0) {
             this.salario = this.salario + ((super.getHorarioDeTrabalho() - 160) * 8);
