@@ -1,7 +1,5 @@
 package Models.pedidos;
 
-import Models.pedidos.Produto;
-
 import java.util.ArrayList;
 
 public class Combo {
