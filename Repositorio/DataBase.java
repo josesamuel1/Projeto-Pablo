@@ -290,36 +290,6 @@ public class DataBase {
         }
     }
 
-    // public static void atualizarProdutos(int id) {
-    // Scanner input = new Scanner(System.in);
-
-    // for (Map.Entry<Produto, Integer> produto : estoqueProdutos.entrySet()) {
-    // Produto p = produto.getKey();
-
-    // if (p.getId() == id) {
-    // System.out.print("Novo nome:\n>>> ");
-    // String novoNome = input.nextLine();
-    // p.setNome(novoNome);
-
-    // System.out.print("Novo tipo:\n>>> ");
-    // String novoTipo = input.nextLine();
-    // p.setTipo(novoTipo);
-
-    // System.out.print("Novo preço:\n>>> ");
-    // int novoPreco = Integer.parseInt(input.nextLine());
-    // p.setPreco(novoPreco);
-
-    // System.out.print("Nova quantidade:\n>>> ");
-    // Integer novaQntd = Integer.parseInt(input.nextLine());
-    // estoqueProdutos.put(p, novaQntd);
-
-    // System.out.println("Novo produto " + p.getNome() + " atualizado com
-    // sucesso.");
-    // return;
-    // }
-    // }
-    // }
-
     public static Usuario pesquisarUsuario(Usuario usuarioProcurado) {
         for (Usuario usuario : usuarios) {
             if (usuarioProcurado == usuario) {
@@ -366,9 +336,9 @@ public class DataBase {
             for (int i = 0; i < atendentes.size(); i++) {
                 // Informa o nome, email e cargo do funcionário.
                 System.out.println("| Nome: " + atendentes.get(i).getNome() +
-                                   " | Email: " + atendentes.get(i).getEmail() +
-                                   " | Cargo: " + atendentes.get(i).getCargo() +
-                                   " | Salário do mês: R$" + atendentes.get(i).getSalario() + "\n");
+                        " | Email: " + atendentes.get(i).getEmail() +
+                        " | Cargo: " + atendentes.get(i).getCargo() +
+                        " | Salário do mês: R$" + atendentes.get(i).getSalario() + "\n");
             }
             return true;
         }
@@ -418,12 +388,6 @@ public class DataBase {
     }
 
     // COMBOS
-    public static void exibirCombosEnumerados() {
-        for (int i = 0; i < combos.size(); i++) {
-            System.out.println("| Combo " + (i + 1) + "\n" + combos.get(i) + ".\n");
-        }
-    }
-
     public static void adicionarCombo(Combo combo) {
         combos.add(combo);
     }
@@ -445,6 +409,28 @@ public class DataBase {
             }
         }
         return -1;
+    }
+
+    public static boolean compoeCombo(ArrayList<Produto> produtos, Produto produto) {
+        for (Produto p : produtos) {
+            if (produto == p) {
+                System.out.println("| Esse produto já faz parte desse combo.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void exibirCombos(ArrayList<Combo> combos) {
+        int i = 0;
+        for (Combo combo : combos) {
+            System.out.println("Combo " + (i + 1) + " | " + combo.getPorcentagemDesconto() + "% de desconto");
+            i++;
+            for (Produto produto : combo.getProdutos()) {
+                System.out.println(produto);
+            }
+            System.out.println();
+        }
     }
 
     // INSTANCIAÇÃO PADRÃO

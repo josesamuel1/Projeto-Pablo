@@ -11,10 +11,18 @@ public class Administrador extends Funcionario {
         this.salario = salario;
     }
 
-    public void calcularHoraExtra() {
-        if (super.getHorarioDeTrabalho() > 160) {
-            this.salario = this.salario + ((super.getHorarioDeTrabalho() - 160) * 8);
+    public double getSalario() {
+        return this.salario;
+    }
+
+    public double calcularHoraExtra(int horas) {
+        if (horas == 0) {
+            this.salario = this.salario + ((super.getHorasDeTrabalho() - 160) * 8);
+        } else if (horas != 0) {
+            this.salario = this.salario + (((super.getHorasDeTrabalho() + horas) - 160) * 8);
         }
-        System.out.println("O funcionário " + super.getNome() + "é RS " + this.salario);
+
+        System.out.println("O novo salário de " + super.getNome() + " é de R$ " + this.salario);
+        return this.salario;
     }
 }

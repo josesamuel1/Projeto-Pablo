@@ -7,7 +7,6 @@ import Models.usuarios.Cliente;
 import Models.usuarios.Usuario;
 import Repositorio.DataBase;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -110,7 +109,7 @@ public class MenusIniciais {
                                     System.out.print("1- Para entregar\n2- Para Retirar na loja.\n>>> ");
                                     int entregaOuRetirada = Integer.parseInt(input.nextLine());
 
-                                    if (entregaOuRetirada == 1){
+                                    if (entregaOuRetirada == 1) {
                                         pedidoVez.setMarcadoParaEntrega(true);
                                     } else {
                                         System.out.println("Opção não encontrada");
@@ -118,7 +117,8 @@ public class MenusIniciais {
 
                                     if (pedidoVez.isMarcadoParaEntrega()) {
                                         System.out.println("Tempo estimado de entrega: 1 hora\nMomento da entrega: "
-                                                           + pedidoVez.getData().plusHours(1).format(pedidoVez.getPadraoDiaHora()));
+                                                + pedidoVez.getData().plusHours(1)
+                                                        .format(pedidoVez.getPadraoDiaHora()));
                                     }
                                     limpaTela();
                                     System.out.println("Pedido Confirmado.");
@@ -314,7 +314,7 @@ public class MenusIniciais {
                                 System.out.print("Selecione qual pedido deseja atualizar. [-1 para sair]\n>>> ");
                                 int p = Integer.parseInt(input.nextLine());
 
-                                if (p == -1){
+                                if (p == -1) {
                                     break;
                                 }
 
@@ -419,7 +419,7 @@ public class MenusIniciais {
                                     if (DataBase.quantCombos() == 0) {
                                         System.out.println("Nenhum combo criado.");
                                     } else {
-                                        exibirCombos(DataBase.getCombos());
+                                        DataBase.exibirCombos(DataBase.getCombos());
                                     }
                                 }
                                 // Criar combo
@@ -439,7 +439,7 @@ public class MenusIniciais {
                                         // Adicionar ao combo
                                         if (id != -1) {
                                             Produto produto = DataBase.pegaProduto(id);
-                                            if (!compoeCombo(produtos, produto)) {
+                                            if (!DataBase.compoeCombo(produtos, produto)) {
                                                 produtos.add(produto);
                                                 limpaTela();
                                                 System.out.println("| Adicionado");
@@ -475,7 +475,7 @@ public class MenusIniciais {
                                 // Remover combo
                                 case (3) -> {
                                     while (true) {
-                                        DataBase.exibirCombosEnumerados();
+                                        DataBase.exibirCombos(DataBase.getCombos());
                                         System.out.print(
                                                 "Qual o número do combo que deseja excluir? [-1 para sair]\n>>> ");
                                         int removerCombo = Integer.parseInt(input.nextLine());
@@ -549,7 +549,7 @@ public class MenusIniciais {
                                 System.out.print("Selecione qual pedido deseja atualizar. [-1 para sair]\n>>> ");
                                 int p = Integer.parseInt(input.nextLine());
 
-                                if (p == -1){
+                                if (p == -1) {
                                     break;
                                 }
 
@@ -638,34 +638,13 @@ public class MenusIniciais {
     public static void limpaTela() throws IOException, InterruptedException {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
     }
-    public static boolean compoeCombo(ArrayList<Produto> produtos, Produto produto) {
-        for (Produto p : produtos) {
-            if (produto == p) {
-                System.out.println("| Esse produto já faz parte desse combo.");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static void exibirCombos(ArrayList<Combo> combos) {
-        int i = 0;
-        for (Combo combo : combos) {
-            System.out.println("Combo " + (i + 1) + " | " + combo.getPorcentagemDesconto() + "% de desconto");
-            i++;
-            for (Produto produto : combo.getProdutos()) {
-                System.out.println(produto);
-            }
-            System.out.println();
-        }
-    }
 
     public static void mostrarListaPedidosAtivos(ArrayList<Pedido> pedidos) {
         for (int i = 0; i < pedidos.size(); i++) {
             Pedido p = pedidos.get(i);
             Status statusPedido = p.getStatus();
             if (statusPedido == Status.ACEITO || statusPedido == Status.PENDENTE
-                || statusPedido == Status.PRONTO) {
+                    || statusPedido == Status.PRONTO) {
                 System.out.println("Pedido " + i);
                 System.out.println(p);
             }
