@@ -3,6 +3,7 @@ package Repositorio;
 import Models.pedidos.*;
 import Models.usuarios.*;
 
+import javax.xml.crypto.Data;
 import java.util.*;
 
 public class DataBase {
@@ -12,6 +13,7 @@ public class DataBase {
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
     private static ArrayList<Combo> combos = new ArrayList<>();
     private static Map<Produto, Integer> estoqueProdutos = new LinkedHashMap<>();
+
     /* Construtor */
     // Padrão
 
@@ -457,5 +459,26 @@ public class DataBase {
         DataBase.adicionarAoEstoque(new Produto("Vela", "Cometa", 10.0), 3);
         DataBase.adicionarAoEstoque(new Produto("Descartável", "Colorido", 10.0), 3);
         DataBase.adicionarAoEstoque(new Produto("Descartavel", "Branco", 10.0), 3);
+    }
+
+    public static void combosBase(){
+        Combo combo1 = new Combo(10);
+        Combo combo2 = new Combo(15);
+        for (Map.Entry<Produto, Integer> info : estoqueProdutos.entrySet()){
+            String tipo = info.getKey().getTipo();
+            if (tipo.equals("Manteiga") || tipo.equals("Coca-cola") || tipo.equals("Chocolate") || tipo.equals("Festa")){
+                combo1.adicionarProduto(info.getKey());
+            } else if (tipo.equals("Caramelo") || tipo.equals("Fanta uva") || tipo.equals("Frango") || tipo.equals("kit branco")) {
+                combo2.adicionarProduto(info.getKey());
+            }
+        }
+        DataBase.adicionarCombo(combo1);
+        DataBase.adicionarCombo(combo2);
+    }
+
+    public static void instanciacaoPadrao(){
+        cadastrosPadrao();
+        estoquePadrao();
+        combosBase();
     }
 }

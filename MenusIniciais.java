@@ -19,6 +19,7 @@ public class MenusIniciais {
         int sair = 0;
         while (sair == 0) {
             try {
+                limpaTela();
                 System.out.print(UserInterface.getMenuCliente());
                 String opcao = input.nextLine();
                 limpaTela();
@@ -72,70 +73,69 @@ public class MenusIniciais {
 
                             // Sair
                             else if (option == -1) {
-                                if (!pedidoVez.carrinhoEstaVazio())
-                                    ; // Fechar pedido
-                                limpaTela();
-
-                                int desconto = DataBase.checaCombo(pedidoVez.getProdutosNoPedido());
-                                if (desconto != -1) {
-                                    double total = pedidoVez.total();
-                                    double totalDescontado = ((double) desconto / 100) * total;
-                                    System.out.println("| Desconto de combo aplicado: -R$" + totalDescontado);
-                                    pedidoVez.setValorTotal(total - totalDescontado);
-                                } else {
-                                    pedidoVez.setValorTotal(pedidoVez.total());
-                                }
-
-                                System.out.println(pedidoVez.sumario());
-                                pedidoVez.mostrarCarrinho();
-                                // Caso deseje remover algum item do pedido -> remover até o usuário decidir
-                                // sair
-                                System.out.println();
-                                System.out.print("Deseja remover algum item?\n1-Sim\n2-Não\n>>> ");
-                                int opt = Integer.parseInt(input.nextLine());
-                                while (opt == 1) {
-                                    opt = pedidoVez.editarCarrinho();
-                                }
-                                limpaTela();
-
-                                // Mostramos o sumario do pedido
-                                System.out.println(pedidoVez.sumario());
-                                pedidoVez.mostrarCarrinho();
-
-                                System.out.print("Gostaria de confirmar o pedido?\n1-Sim\n2-Não\n>>> ");
-                                int confirmaPedido = Integer.parseInt(input.nextLine());
-                                if (confirmaPedido == 1) {
-                                    // Marcamos para retirada ou entrega
-                                    System.out.print("1- Para entregar\n2- Para Retirar na loja.\n>>> ");
-                                    int entregaOuRetirada = Integer.parseInt(input.nextLine());
-
-                                    if (entregaOuRetirada == 1) {
-                                        pedidoVez.setMarcadoParaEntrega(true);
+                                if (!pedidoVez.carrinhoEstaVazio()) {
+                                    limpaTela();
+                                    int desconto = DataBase.checaCombo(pedidoVez.getProdutosNoPedido());
+                                    if (desconto != -1) {
+                                        double total = pedidoVez.total();
+                                        double totalDescontado = ((double) desconto / 100) * total;
+                                        System.out.println("| Desconto de combo aplicado: -R$" + totalDescontado);
+                                        pedidoVez.setValorTotal(total - totalDescontado);
                                     } else {
-                                        System.out.println("Opção não encontrada");
+                                        pedidoVez.setValorTotal(pedidoVez.total());
                                     }
 
-                                    if (pedidoVez.isMarcadoParaEntrega()) {
-                                        System.out.println("Tempo estimado de entrega: 1 hora\nMomento da entrega: "
-                                                + pedidoVez.getData().plusHours(1)
-                                                        .format(pedidoVez.getPadraoDiaHora()));
+                                    System.out.println(pedidoVez.sumario());
+                                    pedidoVez.mostrarCarrinho();
+                                    // Caso deseje remover algum item do pedido -> remover até o usuário decidir
+                                    // sair
+                                    System.out.println();
+                                    System.out.print("Deseja remover algum item?\n1-Sim\n2-Não\n>>> ");
+                                    int opt = Integer.parseInt(input.nextLine());
+                                    while (opt == 1) {
+                                        opt = pedidoVez.editarCarrinho();
                                     }
                                     limpaTela();
-                                    System.out.println("Pedido Confirmado.");
-                                    DataBase.atualizarEstoquePedidoConfirmado(pedidoVez);
-                                    DataBase.adicionarPedido(pedidoVez);
-                                    ((Cliente) cliente).adicionarAoHistorico(pedidoVez);
+
+                                    // Mostramos o sumario do pedido
+                                    System.out.println(pedidoVez.sumario());
+                                    pedidoVez.mostrarCarrinho();
+
+                                    System.out.print("Gostaria de confirmar o pedido?\n1-Sim\n2-Não\n>>> ");
+                                    int confirmaPedido = Integer.parseInt(input.nextLine());
+                                    if (confirmaPedido == 1) {
+                                        // Marcamos para retirada ou entrega
+                                        System.out.print("1- Para entregar\n2- Para Retirar na loja.\n>>> ");
+                                        int entregaOuRetirada = Integer.parseInt(input.nextLine());
+
+                                        if (entregaOuRetirada == 1) {
+                                            pedidoVez.setMarcadoParaEntrega(true);
+                                        } else {
+                                            System.out.println("Opção não encontrada");
+                                        }
+
+                                        limpaTela();
+                                        if (pedidoVez.isMarcadoParaEntrega()) {
+                                            System.out.println("Tempo estimado de entrega: 1 hora\nMomento da entrega: "
+                                                               + pedidoVez.getData().plusHours(1)
+                                                                       .format(pedidoVez.getPadraoDiaHora()));
+                                        }
+
+                                        System.out.println("Pedido Confirmado.");
+                                        DataBase.atualizarEstoquePedidoConfirmado(pedidoVez);
+                                        DataBase.adicionarPedido(pedidoVez);
+                                        ((Cliente) cliente).adicionarAoHistorico(pedidoVez);
+                                        loopPedido = false;
+                                    } else {
+                                        System.out.println("Pedido descartado.");
+                                        pedidoVez.esvaziarCarrinho();
+                                    }
+                                } else if (option == -1 && pedidoVez.carrinhoEstaVazio()) { // Descartar pedido
                                     loopPedido = false;
-                                } else {
-                                    System.out.println("Pedido descartado.");
-                                    pedidoVez.esvaziarCarrinho();
                                 }
-                            } else if (option == -1 && pedidoVez.carrinhoEstaVazio()) { // Descartar pedido
-                                loopPedido = false;
                             }
                         }
                     }
-
                     case "3" -> { // Ver meus pedidos ativos
                         while (true) {
                             ArrayList<Pedido> pedidos = ((Cliente) cliente).getHistPedidos();
@@ -152,13 +152,13 @@ public class MenusIniciais {
                             if (cancelarPedido == 1) {
                                 limpaTela();
                                 mostrarListaPedidosAtivos(pedidos);
-                                System.out.println("Selecione qual pedido deseja cancelar:\n>>> ");
+                                System.out.print("Selecione qual pedido deseja cancelar:\n>>> ");
                                 int remover = Integer.parseInt(input.nextLine());
                                 Pedido pedidoCancelado;
 
                                 int i = 0;
                                 for (Pedido p : pedidos) {
-                                    if (remover == (i + 1)) {
+                                    if (remover == i) {
                                         for (Pedido ped : DataBase.getPedidos()) {
                                             if (ped == p) {
                                                 ped.setStatus(Enums.Status.valueOf("CANCELADO"));
@@ -644,7 +644,7 @@ public class MenusIniciais {
             Pedido p = pedidos.get(i);
             Status statusPedido = p.getStatus();
             if (statusPedido == Status.ACEITO || statusPedido == Status.PENDENTE
-                    || statusPedido == Status.PRONTO) {
+                || statusPedido == Status.PRONTO) {
                 System.out.println("Pedido " + i);
                 System.out.println(p);
             }

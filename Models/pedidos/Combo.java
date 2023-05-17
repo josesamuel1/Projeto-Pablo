@@ -1,5 +1,7 @@
 package Models.pedidos;
 
+import Repositorio.DataBase;
+
 import java.util.ArrayList;
 
 public class Combo {
@@ -12,6 +14,10 @@ public class Combo {
 
     public Combo(ArrayList<Produto> produtos, int porcentagemDesconto) {
         this.produtos = produtos;
+        this.porcentagemDesconto = porcentagemDesconto;
+    }
+
+    public Combo(int porcentagemDesconto) {
         this.porcentagemDesconto = porcentagemDesconto;
     }
 
@@ -40,4 +46,5 @@ public class Combo {
     public void removerProduto(Produto produto) {
         produtos.remove(produto);
     }
+
 }

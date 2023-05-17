@@ -11,15 +11,13 @@ public class Programa {
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
-        // Adicionando um administrador e um atendente ao banco;
-        DataBase.cadastrosPadrao();
-        DataBase.estoquePadrao();
+        DataBase.instanciacaoPadrao();
 
         int sair = 0;
         while (sair == 0) {
             try {
                 // Mostramos o menu inicial e coletamos a opção;
+                limpaTela();
                 System.out.print(UserInterface.getMenuCadastroLogin());
                 int opcao = Integer.parseInt(input.nextLine());
                 switch (opcao) {
