@@ -10,15 +10,30 @@ public class Cadastro {
 
     public static void showCadastroCliente() {
         // Receber dados obrigatorios
-        System.out.print("Nome: ");
-        String nome = input.nextLine();
+        String nome, email, senha = null;
+        while (true) {
+            System.out.print("Nome: ");
+            nome = input.nextLine();
+            if (!nome.isEmpty()) {
+                break;
+            }
+        }
 
-        System.out.print("Email: ");
-        String email = input.nextLine();
+        while (true) {
+            System.out.print("Email: ");
+            email = input.nextLine();
+            if (!email.isEmpty()) {
+                break;
+            }
+        }
 
+        while (true) {
         System.out.print("Senha: ");
-        String senha = input.nextLine();
-
+        senha = input.nextLine();
+            if (!senha.isEmpty()) {
+                break;
+            }
+        }
         System.out.print("Endereço: ");
         String endereco = input.nextLine();
 

@@ -107,7 +107,7 @@ public class Pedido {
         } else {
             System.out.println("| Carrinho");
             for (int i = 0; i < carrinho.size(); i++) {
-                System.out.println("| Item número " + i + " | " + carrinho.get(i));
+                System.out.println("| Item " + i + " | " + carrinho.get(i));
             }
         }
     }

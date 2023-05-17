@@ -19,7 +19,6 @@ public class MenusIniciais {
         int sair = 0;
         while (sair == 0) {
             try {
-                limpaTela();
                 System.out.print(UserInterface.getMenuCliente());
                 String opcao = input.nextLine();
                 limpaTela();
@@ -69,6 +68,7 @@ public class MenusIniciais {
                                     System.out.println("| Quantidade em estoque insuficiente");
                                 }
                                 pedidoVez.mostrarCarrinho();
+                                System.out.println("| Total: R$" + pedidoVez.total());
                             }
 
                             // Sair
@@ -85,8 +85,10 @@ public class MenusIniciais {
                                         pedidoVez.setValorTotal(pedidoVez.total());
                                     }
 
+
                                     System.out.println(pedidoVez.sumario());
                                     pedidoVez.mostrarCarrinho();
+                                    System.out.println("Total a pagar: R$" + pedidoVez.total());
                                     // Caso deseje remover algum item do pedido -> remover até o usuário decidir
                                     // sair
                                     System.out.println();
@@ -636,7 +638,9 @@ public class MenusIniciais {
     }
 
     public static void limpaTela() throws IOException, InterruptedException {
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        for (int i = 0; i < 25; i++){
+            System.out.println();
+        }
     }
 
     public static void mostrarListaPedidosAtivos(ArrayList<Pedido> pedidos) {

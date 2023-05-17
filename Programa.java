@@ -17,7 +17,6 @@ public class Programa {
         while (sair == 0) {
             try {
                 // Mostramos o menu inicial e coletamos a opção;
-                limpaTela();
                 System.out.print(UserInterface.getMenuCadastroLogin());
                 int opcao = Integer.parseInt(input.nextLine());
                 switch (opcao) {
@@ -58,6 +57,8 @@ public class Programa {
     }
 
     public static void limpaTela() throws IOException, InterruptedException {
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        for (int i = 0; i < 25; i++){
+            System.out.println();
+        }
     }
 }

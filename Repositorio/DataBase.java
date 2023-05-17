@@ -437,9 +437,9 @@ public class DataBase {
 
     // INSTANCIAÇÃO PADRÃO
     public static void cadastrosPadrao() {
-        DataBase.adicionarUsuario(new Administrador("Maria", "adm", "maria@gmail.com", "senha1", "Administrador"));
-        DataBase.adicionarAtendente(new Atendente("Alex", "atd", "alex@gmail.com", "senha2", "Atendente"));
-        DataBase.adicionarCliente(new Cliente("Paula", "clt", "paula@gmail.com", "senha3", "Rua X", "83955555555"));
+        DataBase.adicionarUsuario(new Administrador("Pablo", "adm", "administrador@gmail.com", "senha1", "Administrador"));
+        DataBase.adicionarAtendente(new Atendente("Pablo", "atd", "atendente@gmail.com", "senha2", "Atendente"));
+        DataBase.adicionarCliente(new Cliente("Pablo", "clt", "cliente@gmail.com", "senha3", "Rua X", "83955555555"));
     }
 
     public static void estoquePadrao() {
